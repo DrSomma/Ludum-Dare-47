@@ -238,7 +238,7 @@ MonoBehaviour:
   worldTilePrefab: {fileID: 5086062562542190380, guid: c2719e0e8684bcb478f642592fb2e87e, type: 3}
   width: 18
   height: 10
-  DrawDebugLine: 1
+  drawDebugLine: 1
 --- !u!4 &1346281127
 Transform:
   m_ObjectHideFlags: 0
@@ -253,6 +253,70 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1793526062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1793526063}
+  - component: {fileID: 1793526064}
+  m_Layer: 0
+  m_Name: SpriteManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1793526063
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793526062}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.254175, y: 4.866986, z: -3.4638035}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1793526064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793526062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f10b26f174cdea14688dab07df372171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameBySprite:
+  - name: empty
+    sprite: {fileID: 21300000, guid: e4cbbfa5bb208be4a9d0f593fc4f4e23, type: 3}
+  - name: rail_direction_E
+    sprite: {fileID: 21300000, guid: a95fd55e362e92d4188fddc5f17b5ef4, type: 3}
+  - name: rail_direction_ES
+    sprite: {fileID: 21300000, guid: 0fa3220042b3d84448afbdcfdd5ce5da, type: 3}
+  - name: rail_direction_S
+    sprite: {fileID: 21300000, guid: 11a51f7d734930f438da9b9932244f6e, type: 3}
+  - name: rail_direction_SW
+    sprite: {fileID: 21300000, guid: 93f7ec1708e0d38428b07f002b738e05, type: 3}
+  - name: rail_direction_W
+    sprite: {fileID: 21300000, guid: eca5022dffb40144eabdf3d6aa26299d, type: 3}
+  - name: rail_direction_WN
+    sprite: {fileID: 21300000, guid: 21d9ca215d2a2da48bdff6fcc6bb5990, type: 3}
+  - name: rail_direction_N
+    sprite: {fileID: 21300000, guid: e0fda01aab4f79546b325878ae33dd22, type: 3}
+  - name: rail_direction_NE
+    sprite: {fileID: 21300000, guid: 6e5977bbe59c3ec4c99b45c0a2129916, type: 3}
+  - name: station
+    sprite: {fileID: 21300000, guid: d68b571d35cbab24a8029ae3741b46a1, type: 3}
 --- !u!1 &2063851107
 GameObject:
   m_ObjectHideFlags: 0

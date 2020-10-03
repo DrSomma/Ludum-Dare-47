@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace Utils
 {
@@ -65,5 +66,33 @@ namespace Utils
         //     textMesh.GetComponent<MeshRenderer>().sortingOrder = sortingOrder;
         //     return textMesh;
         // }
+    }
+
+    public class ReadOnlyAttribute : PropertyAttribute
+    {
+    }
+
+    [CustomPropertyDrawer(type: typeof(ReadOnlyAttribute))]
+    public class ReadOnlyDrawer : PropertyDrawer
+    {
+        public override float GetPropertyHeight(
+            SerializedProperty property,
+            GUIContent label)
+        {
+            return EditorGUI.GetPropertyHeight(property: property, label: label, includeChildren: true);
+        }
+
+        public override void OnGUI(
+            Rect position,
+            SerializedProperty property,
+            GUIContent label)
+        {
+            GUI.enabled = false;
+            EditorGUI.PropertyField(position: position,
+                                    property: property,
+                                    label: label,
+                                    includeChildren: true);
+            GUI.enabled = true;
+        }
     }
 }

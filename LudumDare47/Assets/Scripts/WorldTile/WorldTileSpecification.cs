@@ -1,0 +1,12 @@
+﻿using Enum;
+using UnityEngine;
+
+namespace WorldTile
+{
+    public abstract class WorldTileSpecification
+    {
+        public WorldTileSpecificationType Type;
+
+        public Sprite Sprite;
+    }
+}

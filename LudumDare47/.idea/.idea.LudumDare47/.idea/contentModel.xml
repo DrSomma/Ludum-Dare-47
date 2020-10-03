@@ -5,16 +5,23 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
-          <e p="Grid.cs" t="Include" />
+          <e p="Enum" t="Include">
+            <e p="WorldTileSpecificationType.cs" t="Include" />
+          </e>
           <e p="Manager" t="Include">
             <e p="GameManager.cs" t="Include" />
             <e p="SoundManager.cs" t="Include" />
+            <e p="SpriteManager.cs" t="Include" />
           </e>
-          <e p="SpriteClass.cs" t="Include" />
           <e p="Utils" t="Include">
             <e p="UtilsClass.cs" t="Include" />
           </e>
-          <e p="WorldTile.cs" t="Include" />
+          <e p="WorldTile" t="Include">
+            <e p="WorldTileClass.cs" t="Include" />
+            <e p="WorldTileRail.cs" t="Include" />
+            <e p="WorldTileSpecification.cs" t="Include" />
+            <e p="WorldTileStation.cs" t="Include" />
+          </e>
         </e>
       </e>
       <e p="LudumDare47.sln" t="IncludeFlat" />

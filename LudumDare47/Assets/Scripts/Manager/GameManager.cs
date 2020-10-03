@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using Enum;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
+using WorldTile;
 
 namespace Manager
 {
@@ -9,19 +12,18 @@ namespace Manager
         public GameObject worldTilePrefab;
         public int width = 18;
         public int height = 10;
-        public bool DrawDebugLine = true;
+        public bool drawDebugLine = true;
+        public WorldTileSpecificationType debugWorldTileSpecificationType = WorldTileSpecificationType.Station;
 
-        // private Grid _grid;
-        private Dictionary<KeyValuePair<int, int>, WorldTile> _gridByTile;
+        private Dictionary<KeyValuePair<int, int>, WorldTileClass> _gridByTile;
 
         private void Start()
         {
-            // _grid = new Grid(width: width, height: height);
-            _gridByTile = new Dictionary<KeyValuePair<int, int>, WorldTile>();
+            _gridByTile = new Dictionary<KeyValuePair<int, int>, WorldTileClass>();
 
 
             // Grid to make visible the border of playing field
-            if (DrawDebugLine)
+            if (drawDebugLine)
             {
                 Debug.DrawLine(start: new Vector3(x: 0, y: 0),
                                end: new Vector3(x: 0, y: height),
@@ -55,33 +57,30 @@ namespace Manager
 
         private void DoActionOnWorldTile(int x, int y)
         {
-            if (x >= 0 && y >= 0 && x < width && y < height)
+            if (IsValidField(x: x, y: y))
             {
                 if (!_gridByTile.TryGetValue(key: new KeyValuePair<int, int>(key: x, value: y),
-                                             value: out WorldTile worldTile))
+                                             value: out WorldTileClass worldTile))
                 {
                     GameObject gameObject = Instantiate(original: worldTilePrefab,
                                                         position: new Vector3(x: x, y: y),
                                                         rotation: Quaternion.identity);
 
-                    worldTile = gameObject.GetComponent<WorldTile>();
+                    worldTile = gameObject.GetComponent<WorldTileClass>();
+
+                    worldTile.Instantiate(worldTileSpecification: debugWorldTileSpecificationType);
 
                     _gridByTile.Add(key: new KeyValuePair<int, int>(key: x, value: y), value: worldTile);
                 }
-
-                worldTile.ChangeSprite();
             }
         }
 
-        private void ChangeColorOfTile(WorldTile worldTile)
+        private bool IsValidField(int x, int y)
         {
-            if (worldTile.sprite != null)
-            {
-                worldTile.sprite.color = new Color(r: Random.value, g: Random.value, b: Random.value);
-            }
+            return x >= 0 && y >= 0 && x < width && y < height;
         }
 
-        private void GetXY(Vector3 worldPosition, out int x, out int y)
+        private static void GetXY(Vector3 worldPosition, out int x, out int y)
         {
             x = Mathf.FloorToInt(f: worldPosition.x);
             y = Mathf.FloorToInt(f: worldPosition.y);

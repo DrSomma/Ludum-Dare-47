@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Enum;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -84,6 +85,31 @@ namespace Manager
         {
             x = Mathf.FloorToInt(f: worldPosition.x);
             y = Mathf.FloorToInt(f: worldPosition.y);
+        }
+
+        public WorldTileStatusType GetWorldTileStatus(int x, int y)
+        {
+            if (!IsValidField(x: x, y: y))
+            {
+                return WorldTileStatusType.Invalid;
+            }
+
+            if (_gridByTile.TryGetValue(key: new KeyValuePair<int, int>(key: x, value: y),
+                                              value: out WorldTileClass worldTile))
+            {
+                switch (worldTile.worldTileSpecificationType)
+                {
+                    case WorldTileSpecificationType.Rail: return WorldTileStatusType.Blocked;
+
+                    case WorldTileSpecificationType.Station: return WorldTileStatusType.CanBeUpgraded;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+            else
+            {
+                return WorldTileStatusType.NotInitialized | WorldTileStatusType.CanBeBuiltOn;
+            }
         }
     }
 }

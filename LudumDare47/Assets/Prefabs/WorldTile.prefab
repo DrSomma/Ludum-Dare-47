@@ -133,5 +133,11 @@ MonoBehaviour:
   sprites:
   - name: Emtpy
     sprite: {fileID: 21300000, guid: 2d4ef23c92df45444a231c0a87673139, type: 3}
-  - name: Rail
-    sprite: {fileID: 21300000, guid: 5810c738f93a5604f8ff4a36aea6b903, type: 3}
+  - name: Rail_direction_N
+    sprite: {fileID: 21300000, guid: e4f5d7a431e65944999941c4ab2dccd2, type: 3}
+  - name: Rail_direction_E
+    sprite: {fileID: 21300000, guid: 7326c1c3b15a6f94887ae34d0c08bd96, type: 3}
+  - name: Rail_direction_S
+    sprite: {fileID: 21300000, guid: 2ad51ac1d26ec454e9ec29dbc87a3753, type: 3}
+  - name: Rail_direction_W
+    sprite: {fileID: 21300000, guid: 98c5def72b45f9d4da98488c2ba0a5e6, type: 3}

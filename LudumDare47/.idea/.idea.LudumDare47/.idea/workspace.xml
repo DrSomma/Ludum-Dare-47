@@ -20,25 +20,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d90bb05-f1ae-43ae-ab22-a3048c71824d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/WorldTile.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/WorldTile.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Grid.unity" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Grid.unity.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Manager/GameManager.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/UtilsClass.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/WorldTile.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/32x32px.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/32x32px.jpg.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/64x64px.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/64x64px.jpg.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/WorldTile.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/WorldTile/empty.psd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/WorldTile/empty.psd.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/WorldTile/rail.psd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/WorldTile/rail.psd.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.LudumDare47/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LudumDare47/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.LudumDare47/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LudumDare47/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LudumDare47.sln.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/LudumDare47.sln.DotSettings" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/TextureImporter32px.preset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/TextureImporter32px.preset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/WorldTile/rail_direction_E.psd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/WorldTile/rail_direction_E.psd.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/WorldTile/rail_direction_N.psd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/WorldTile/rail_direction_N.psd.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/WorldTile/rail_direction_S.psd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/WorldTile/rail_direction_S.psd.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/WorldTile/rail_direction_W.psd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/WorldTile/rail_direction_W.psd.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/WorldTile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/WorldTile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/WorldTile/rail.psd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/WorldTile/rail.psd.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +124,7 @@
       <updated>1601653575966</updated>
       <workItem from="1601653593279" duration="2646000" />
       <workItem from="1601681708307" duration="5602000" />
-      <workItem from="1601688920092" duration="10884000" />
+      <workItem from="1601688920092" duration="10890000" />
     </task>
     <servers />
   </component>

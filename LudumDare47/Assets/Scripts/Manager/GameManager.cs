@@ -20,9 +20,6 @@ namespace Manager
         [Header(header: "Building Settings")]
         public bool buildModeOn;
 
-        public WorldTileSpecificationType
-            currentSelectedWorldTileSpecificationType = WorldTileSpecificationType.Station;
-
         private Dictionary<KeyValuePair<int, int>, WorldTileClass> _gridByTile;
 
         private void Awake()
@@ -66,23 +63,7 @@ namespace Manager
 
         private void Update()
         {
-            //if (Input.GetMouseButtonDown(button: 0))
-            //{
-            //    Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position: Input.mousePosition);
-            //    Utils.GetXY(worldPosition: worldPosition, x: out int x, y: out int y);
 
-            //    if (buildModeOn)
-            //    {
-            //        BuildSomething(x: x, y: y);
-            //    }
-            //    else
-            //    {
-            //        GetInformation(x: x, y: y);
-            //    }
-
-
-            //    // DoActionOnWorldTile(x: x, y: y);
-            //}
         }
 
         public void BuildSomething(int x, int y, WorldTileSpecificationType buildType)
@@ -128,48 +109,11 @@ namespace Manager
             }
         }
 
-        private void GetInformation(int x, int y)
-        {
-            WorldTileStatusType worldTileStatus = GetFieldStatus(x: x, y: y, worldTile: out WorldTileClass worldTile);
-
-            if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Invalid))
-            {
-                Debug.Log(message: "Invalid field!");
-            }
-
-            if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Blocked))
-            {
-                Debug.Log(message: $"Blocked field: {worldTile.worldTileSpecificationType.ToString()}");
-            }
-
-            if (worldTileStatus.HasFlag(flag: WorldTileStatusType.NotInitialized))
-            {
-                Debug.Log(message: "Field not initialized!");
-            }
-
-            if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Buildable))
-            {
-                Debug.Log(message: "Field is buildable!");
-            }
-        }
-
         private void DoActionOnWorldTile(int x, int y)
         {
             if (IsValidField(x: x, y: y))
             {
-                if (!_gridByTile.TryGetValue(key: new KeyValuePair<int, int>(key: x, value: y),
-                                             value: out WorldTileClass worldTile))
-                {
-                    GameObject gameObject = Instantiate(original: worldTilePrefab,
-                                                        position: new Vector3(x: x, y: y),
-                                                        rotation: Quaternion.identity);
-
-                    worldTile = gameObject.GetComponent<WorldTileClass>();
-
-                    worldTile.Instantiate(worldTileSpecification: currentSelectedWorldTileSpecificationType);
-
-                    _gridByTile.Add(key: new KeyValuePair<int, int>(key: x, value: y), value: worldTile);
-                }
+                //TODO?
             }
         }
 

@@ -1618,6 +1618,8 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 6e5977bbe59c3ec4c99b45c0a2129916, type: 3}
   - name: station
     sprite: {fileID: 21300000, guid: d68b571d35cbab24a8029ae3741b46a1, type: 3}
+  - name: bulldozer
+    sprite: {fileID: 21300000, guid: 4a71a22ccbea99b498d2c7ffd553d188, type: 3}
 --- !u!1 &1975340254
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,8 +1743,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 4a71a22ccbea99b498d2c7ffd553d188, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

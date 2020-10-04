@@ -9,8 +9,28 @@ namespace Manager
 {
     public class GameManager : MonoBehaviour
     {
-        private static GameManager _instance;
-        public static GameManager Instance { get { return _instance; } }
+        #region SINGLETON PATTERN
+        private static SpriteManager _instance;
+
+        public static SpriteManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = FindObjectOfType<SpriteManager>();
+
+                    if (_instance == null)
+                    {
+                        GameObject container = new GameObject(name: "SpriteManager");
+                        _instance = container.AddComponent<SpriteManager>();
+                    }
+                }
+
+                return _instance;
+            }
+        }
+        #endregion
 
         public GameObject worldTilePrefab;
         public int width = 18;
@@ -22,17 +42,7 @@ namespace Manager
 
         private Dictionary<KeyValuePair<int, int>, WorldTileClass> _gridByTile;
 
-        private void Awake()
-        {
-            if (_instance != null && _instance != this)
-            {
-                Destroy(this.gameObject);
-            }
-            else
-            {
-                _instance = this;
-            }
-        }
+
 
         private void Start()
         {

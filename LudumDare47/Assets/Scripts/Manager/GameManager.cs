@@ -9,17 +9,33 @@ namespace Manager
 {
     public class GameManager : MonoBehaviour
     {
+        private static GameManager _instance;
+        public static GameManager Instance { get { return _instance; } }
+
         public GameObject worldTilePrefab;
         public int width = 18;
         public int height = 10;
         public bool drawDebugLine = true;
 
-        [Header(header: "Building Settings")] public bool buildModeOn;
+        [Header(header: "Building Settings")]
+        public bool buildModeOn;
 
         public WorldTileSpecificationType
             currentSelectedWorldTileSpecificationType = WorldTileSpecificationType.Station;
 
         private Dictionary<KeyValuePair<int, int>, WorldTileClass> _gridByTile;
+
+        private void Awake()
+        {
+            if (_instance != null && _instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                _instance = this;
+            }
+        }
 
         private void Start()
         {
@@ -50,31 +66,26 @@ namespace Manager
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(button: 0))
-            {
-                Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position: Input.mousePosition);
-                Utils.GetXY(worldPosition: worldPosition, x: out int x, y: out int y);
+            //if (Input.GetMouseButtonDown(button: 0))
+            //{
+            //    Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position: Input.mousePosition);
+            //    Utils.GetXY(worldPosition: worldPosition, x: out int x, y: out int y);
 
-                if (buildModeOn)
-                {
-                    BuildSomething(x: x, y: y);
-                }
-                else
-                {
-                    GetInformation(x: x, y: y);
-                }
+            //    if (buildModeOn)
+            //    {
+            //        BuildSomething(x: x, y: y);
+            //    }
+            //    else
+            //    {
+            //        GetInformation(x: x, y: y);
+            //    }
 
 
-                // DoActionOnWorldTile(x: x, y: y);
-            }
+            //    // DoActionOnWorldTile(x: x, y: y);
+            //}
         }
 
-        public void SetBuildMode(bool status)
-        {
-            buildModeOn = status;
-        }
-
-        private void BuildSomething(int x, int y)
+        public void BuildSomething(int x, int y, WorldTileSpecificationType buildType)
         {
             WorldTileStatusType worldTileStatus = GetFieldStatus(x: x, y: y, worldTile: out WorldTileClass worldTile);
 
@@ -96,13 +107,13 @@ namespace Manager
 
                 worldTile = gameObject.GetComponent<WorldTileClass>();
 
-                worldTile.Instantiate(worldTileSpecification: currentSelectedWorldTileSpecificationType);
+                worldTile.Instantiate(worldTileSpecification: buildType);
 
                 _gridByTile.Add(key: new KeyValuePair<int, int>(key: x, value: y), value: worldTile);
             }
             else if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Buildable))
             {
-                worldTile.Instantiate(worldTileSpecification: currentSelectedWorldTileSpecificationType);
+                worldTile.Instantiate(worldTileSpecification: buildType);
             }
         }
 

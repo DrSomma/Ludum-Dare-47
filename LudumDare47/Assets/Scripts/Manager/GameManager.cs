@@ -10,20 +10,20 @@ namespace Manager
     public class GameManager : MonoBehaviour
     {
         #region SINGLETON PATTERN
-        private static SpriteManager _instance;
+        private static GameManager _instance;
 
-        public static SpriteManager Instance
+        public static GameManager Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    _instance = FindObjectOfType<SpriteManager>();
+                    _instance = FindObjectOfType<GameManager>();
 
                     if (_instance == null)
                     {
-                        GameObject container = new GameObject(name: "SpriteManager");
-                        _instance = container.AddComponent<SpriteManager>();
+                        GameObject container = new GameObject(name: "GameManager");
+                        _instance = container.AddComponent<GameManager>();
                     }
                 }
 
@@ -36,6 +36,7 @@ namespace Manager
         public int width = 18;
         public int height = 10;
         public bool drawDebugLine = true;
+        public int Money { get; private set; }
 
         [Header(header: "Building Settings")]
         public bool buildModeOn;
@@ -68,6 +69,15 @@ namespace Manager
                                end: new Vector3(x: width, y: height),
                                color: Color.white,
                                duration: 100f);
+            }
+        }
+
+        public void changeMoney(int sumToAdd)
+        {
+            if(Money >= sumToAdd)
+            {
+                Money -= sumToAdd;
+                //TODO Update UI
             }
         }
 

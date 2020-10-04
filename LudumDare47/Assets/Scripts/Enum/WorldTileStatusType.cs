@@ -5,10 +5,11 @@ namespace Enum
     [Flags]
     public enum WorldTileStatusType
     {
-        Invalid = 0,
-        NotInitialized = 1,
-        Blocked = 2,
-        CanBeBuiltOn = 4,
-        CanBeUpgraded = 6
+        None = 0,
+        Invalid = 1 << 0,
+        NotInitialized = 1 << 1,
+        Blocked = 1 << 2,
+        Buildable = 1 << 3,
+        Upgradeable = 1 << 4
     }
 }

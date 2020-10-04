@@ -1,7 +1,7 @@
 ﻿using System;
+using amazeIT;
 using Enum;
 using UnityEngine;
-using Utils;
 
 namespace WorldTile
 {
@@ -13,10 +13,18 @@ namespace WorldTile
 
         private WorldTileSpecification _worldTileSpecification;
 
+        private void Awake()
+        {
+            worldTileSpecificationType = WorldTileSpecificationType.None;
+        }
+
         public void Instantiate(WorldTileSpecificationType worldTileSpecification)
         {
             switch (worldTileSpecification)
             {
+                case WorldTileSpecificationType.None:
+                    worldTileSpecificationType = WorldTileSpecificationType.None;
+                    return;
                 case WorldTileSpecificationType.Rail:
                     _worldTileSpecification = new WorldTileRail();
                     break;

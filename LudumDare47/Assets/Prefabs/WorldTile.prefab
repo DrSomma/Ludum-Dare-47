@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0b2a5f642ca66844ba4b9a71ece45c5f, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &5086062562542190380
@@ -127,25 +127,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 1921101523459337521}
-  currentSelectedSpriteClass:
-    name: Rail
-    sprite: {fileID: 21300000, guid: a95fd55e362e92d4188fddc5f17b5ef4, type: 3}
-  sprites:
-  - name: Emtpy
-    sprite: {fileID: 21300000, guid: e4cbbfa5bb208be4a9d0f593fc4f4e23, type: 3}
-  - name: Rail_direction_E
-    sprite: {fileID: 21300000, guid: a95fd55e362e92d4188fddc5f17b5ef4, type: 3}
-  - name: Rail_direction_ES
-    sprite: {fileID: 21300000, guid: 0fa3220042b3d84448afbdcfdd5ce5da, type: 3}
-  - name: Rail_direction_S
-    sprite: {fileID: 21300000, guid: 11a51f7d734930f438da9b9932244f6e, type: 3}
-  - name: Rail_direction_SW
-    sprite: {fileID: 21300000, guid: 93f7ec1708e0d38428b07f002b738e05, type: 3}
-  - name: Rail_direction_W
-    sprite: {fileID: 21300000, guid: eca5022dffb40144eabdf3d6aa26299d, type: 3}
-  - name: Rail_direction_WN
-    sprite: {fileID: 21300000, guid: 21d9ca215d2a2da48bdff6fcc6bb5990, type: 3}
-  - name: Rail_direction_N
-    sprite: {fileID: 21300000, guid: e0fda01aab4f79546b325878ae33dd22, type: 3}
-  - name: Rail_direction_NE
-    sprite: {fileID: 21300000, guid: 6e5977bbe59c3ec4c99b45c0a2129916, type: 3}
+  worldTileSpecificationType: 0

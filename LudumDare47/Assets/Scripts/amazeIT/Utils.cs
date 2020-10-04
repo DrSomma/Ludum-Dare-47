@@ -1,10 +1,10 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Utils
+namespace amazeIT
 {
     //Class for static functions
-    public static class UtilsClass
+    public static class Utils
     {
         // Hier können wir uns Hilfsfunktionen schreiben. Zum Beispiel ein $-Symbol, welches an beliebiger Stelle
         // aufploppen kann.
@@ -66,7 +66,28 @@ namespace Utils
         //     textMesh.GetComponent<MeshRenderer>().sortingOrder = sortingOrder;
         //     return textMesh;
         // }
+
+        /// <summary>
+        /// calculates x,y from worldPosition
+        /// </summary>
+        /// <param name="worldPosition"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public static void GetXY(Vector3 worldPosition, out int x, out int y)
+        {
+            x = Mathf.FloorToInt(f: worldPosition.x);
+            y = Mathf.FloorToInt(f: worldPosition.y);
+        }
     }
+
+    #region ReadOnly
+    /// <summary>
+    /// This is just for the editor view
+    /// Write [ReadOnly] before the variable if it shouldn't be enabled for editing in the editor
+    ///
+    /// Example:
+    /// [ReadOnly] public string str;
+    /// </summary>
 
     public class ReadOnlyAttribute : PropertyAttribute
     {
@@ -95,4 +116,5 @@ namespace Utils
             GUI.enabled = true;
         }
     }
+    #endregion ReadOnly
 }

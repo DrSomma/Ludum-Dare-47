@@ -1,9 +1,8 @@
-﻿using System;
+﻿using amazeIT;
+using System;
 using System.Collections.Generic;
 using Enum;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UIElements;
 using WorldTile;
 
 namespace Manager
@@ -14,7 +13,11 @@ namespace Manager
         public int width = 18;
         public int height = 10;
         public bool drawDebugLine = true;
-        public WorldTileSpecificationType debugWorldTileSpecificationType = WorldTileSpecificationType.Station;
+
+        [Header(header: "Building Settings")] public bool buildModeOn;
+
+        public WorldTileSpecificationType
+            currentSelectedWorldTileSpecificationType = WorldTileSpecificationType.Station;
 
         private Dictionary<KeyValuePair<int, int>, WorldTileClass> _gridByTile;
 
@@ -50,9 +53,81 @@ namespace Manager
             if (Input.GetMouseButtonDown(button: 0))
             {
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position: Input.mousePosition);
-                GetXY(worldPosition: worldPosition, x: out int x, y: out int y);
+                Utils.GetXY(worldPosition: worldPosition, x: out int x, y: out int y);
 
-                DoActionOnWorldTile(x: x, y: y);
+                if (buildModeOn)
+                {
+                    BuildSomething(x: x, y: y);
+                }
+                else
+                {
+                    GetInformation(x: x, y: y);
+                }
+
+
+                // DoActionOnWorldTile(x: x, y: y);
+            }
+        }
+
+        public void SetBuildMode(bool status)
+        {
+            buildModeOn = status;
+        }
+
+        private void BuildSomething(int x, int y)
+        {
+            WorldTileStatusType worldTileStatus = GetFieldStatus(x: x, y: y, worldTile: out WorldTileClass worldTile);
+
+            if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Invalid))
+            {
+                Debug.Log(message: "Invalid field - building impossible!");
+                return;
+            }
+            else if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Blocked))
+            {
+                Debug.Log(message: "Blocked field - building impossible!");
+            }
+            else if (worldTileStatus.HasFlag(flag: WorldTileStatusType.NotInitialized))
+            {
+                // Initialize
+                GameObject gameObject = Instantiate(original: worldTilePrefab,
+                                                    position: new Vector3(x: x, y: y),
+                                                    rotation: Quaternion.identity);
+
+                worldTile = gameObject.GetComponent<WorldTileClass>();
+
+                worldTile.Instantiate(worldTileSpecification: currentSelectedWorldTileSpecificationType);
+
+                _gridByTile.Add(key: new KeyValuePair<int, int>(key: x, value: y), value: worldTile);
+            }
+            else if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Buildable))
+            {
+                worldTile.Instantiate(worldTileSpecification: currentSelectedWorldTileSpecificationType);
+            }
+        }
+
+        private void GetInformation(int x, int y)
+        {
+            WorldTileStatusType worldTileStatus = GetFieldStatus(x: x, y: y, worldTile: out WorldTileClass worldTile);
+
+            if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Invalid))
+            {
+                Debug.Log(message: "Invalid field!");
+            }
+
+            if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Blocked))
+            {
+                Debug.Log(message: $"Blocked field: {worldTile.worldTileSpecificationType.ToString()}");
+            }
+
+            if (worldTileStatus.HasFlag(flag: WorldTileStatusType.NotInitialized))
+            {
+                Debug.Log(message: "Field not initialized!");
+            }
+
+            if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Buildable))
+            {
+                Debug.Log(message: "Field is buildable!");
             }
         }
 
@@ -69,7 +144,7 @@ namespace Manager
 
                     worldTile = gameObject.GetComponent<WorldTileClass>();
 
-                    worldTile.Instantiate(worldTileSpecification: debugWorldTileSpecificationType);
+                    worldTile.Instantiate(worldTileSpecification: currentSelectedWorldTileSpecificationType);
 
                     _gridByTile.Add(key: new KeyValuePair<int, int>(key: x, value: y), value: worldTile);
                 }
@@ -81,34 +156,29 @@ namespace Manager
             return x >= 0 && y >= 0 && x < width && y < height;
         }
 
-        private static void GetXY(Vector3 worldPosition, out int x, out int y)
-        {
-            x = Mathf.FloorToInt(f: worldPosition.x);
-            y = Mathf.FloorToInt(f: worldPosition.y);
-        }
-
-        public WorldTileStatusType GetWorldTileStatus(int x, int y)
+        public WorldTileStatusType GetFieldStatus(int x, int y, out WorldTileClass worldTile)
         {
             if (!IsValidField(x: x, y: y))
             {
+                worldTile = null;
                 return WorldTileStatusType.Invalid;
             }
 
             if (_gridByTile.TryGetValue(key: new KeyValuePair<int, int>(key: x, value: y),
-                                              value: out WorldTileClass worldTile))
+                                        value: out worldTile))
             {
                 switch (worldTile.worldTileSpecificationType)
                 {
+                    case WorldTileSpecificationType.None: return WorldTileStatusType.Buildable;
                     case WorldTileSpecificationType.Rail: return WorldTileStatusType.Blocked;
-
-                    case WorldTileSpecificationType.Station: return WorldTileStatusType.CanBeUpgraded;
+                    case WorldTileSpecificationType.Station: return WorldTileStatusType.Upgradeable;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
             else
             {
-                return WorldTileStatusType.NotInitialized | WorldTileStatusType.CanBeBuiltOn;
+                return WorldTileStatusType.NotInitialized | WorldTileStatusType.Buildable;
             }
         }
     }

@@ -5,6 +5,9 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
+          <e p="amazeIT" t="Include">
+            <e p="Utils.cs" t="Include" />
+          </e>
           <e p="Enum" t="Include">
             <e p="WorldTileSpecificationType.cs" t="Include" />
             <e p="WorldTileStatusType.cs" t="Include" />
@@ -13,9 +16,6 @@
             <e p="GameManager.cs" t="Include" />
             <e p="SoundManager.cs" t="Include" />
             <e p="SpriteManager.cs" t="Include" />
-          </e>
-          <e p="Utils" t="Include">
-            <e p="UtilsClass.cs" t="Include" />
           </e>
           <e p="WorldTile" t="Include">
             <e p="WorldTileClass.cs" t="Include" />

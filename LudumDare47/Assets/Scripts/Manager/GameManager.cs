@@ -36,10 +36,16 @@ namespace Manager
         public int width = 18;
         public int height = 10;
         public bool drawDebugLine = true;
-        public int Money { get; private set; }
 
         [Header(header: "Building Settings")]
         public bool buildModeOn;
+        public int startMoney = 1000;
+        public int Money { get; private set; }
+
+
+        public delegate void MoneyChanged(int money, int sumToAdd);
+        public event MoneyChanged OnMoneyChanged;
+
 
         private Dictionary<KeyValuePair<int, int>, WorldTileClass> _gridByTile;
 
@@ -48,7 +54,7 @@ namespace Manager
         private void Start()
         {
             _gridByTile = new Dictionary<KeyValuePair<int, int>, WorldTileClass>();
-
+            changeMoney(startMoney);
 
             // Grid to make visible the border of playing field
             if (drawDebugLine)
@@ -74,10 +80,10 @@ namespace Manager
 
         public void changeMoney(int sumToAdd)
         {
-            if(Money >= sumToAdd)
+            if(sumToAdd > 0 || Money >= sumToAdd)
             {
-                Money -= sumToAdd;
-                //TODO Update UI
+                Money += sumToAdd;
+                OnMoneyChanged(Money, sumToAdd);
             }
         }
 

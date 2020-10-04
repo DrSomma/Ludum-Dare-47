@@ -371,12 +371,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1531025691}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000019073, y: -375}
+  m_AnchoredPosition: {x: 960, y: 165}
   m_SizeDelta: {x: 221.20282, y: 101.17279}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &411490012
@@ -448,7 +448,7 @@ RectTransform:
   m_Children:
   - {fileID: 1383129387}
   m_Father: {fileID: 1531025691}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -712,7 +712,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5656800522918719608, guid: c2719e0e8684bcb478f642592fb2e87e, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5656800522918719608, guid: c2719e0e8684bcb478f642592fb2e87e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -874,6 +874,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47217ab51c8a9e644a662e7e6ff8fd3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Price: 100
+  Type: 0
+  PriceTag: {fileID: 0}
+  Btn: {fileID: 0}
 --- !u!1 &1346281125
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,7 +912,6 @@ MonoBehaviour:
   height: 10
   drawDebugLine: 1
   buildModeOn: 0
-  currentSelectedWorldTileSpecificationType: 1
 --- !u!4 &1346281127
 Transform:
   m_ObjectHideFlags: 0
@@ -1128,11 +1131,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 411490011}
   - {fileID: 1605677025}
   - {fileID: 462786993}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1152,7 +1154,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursor: {fileID: 1422967586}
-  worldTilePrefab: {fileID: 0}
 --- !u!1 &1600831494
 GameObject:
   m_ObjectHideFlags: 0
@@ -1296,6 +1297,7 @@ GameObject:
   - component: {fileID: 1605677025}
   - component: {fileID: 1605677027}
   - component: {fileID: 1605677026}
+  - component: {fileID: 1605677028}
   m_Layer: 5
   m_Name: txtMoney
   m_TagString: Untagged
@@ -1315,7 +1317,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1531025691}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -1421,6 +1423,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1605677024}
   m_CullTransparentMesh: 0
+--- !u!114 &1605677028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1605677024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a481e4f73a90b54181645196d03cc39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1695464510
 GameObject:
   m_ObjectHideFlags: 0
@@ -1684,7 +1698,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1992535486
 GameObject:

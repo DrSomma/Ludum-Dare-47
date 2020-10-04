@@ -9,10 +9,11 @@ using WorldTile;
 public class ShopManager : MonoBehaviour
 {
     public GameObject cursor;
-    public GameObject worldTilePrefab;
+    public Dictionary<int,int> PriceTable;
 
     private SpriteRenderer _spriteRenderer;
     private WorldTileSpecificationType _buildType = WorldTileSpecificationType.Station;
+    private int _buildPrice;
     private GameObject _tempBuilding;
     private bool onDestroyMode;
 
@@ -22,6 +23,22 @@ public class ShopManager : MonoBehaviour
         _spriteRenderer = cursor.GetComponentInChildren<SpriteRenderer>();
         _spriteRenderer.sprite = null;
         //_spriteRenderer.material.SetFloat("_GrayscaleAmount", 1);
+
+        ShopItem.OnShopItemPressed += SetBuildType;
+
+    }
+
+    public void SetBuildType(ShopItem item)
+    {
+        if(item.Type == WorldTileSpecificationType.None)
+        {
+            SetDestroyMode();
+        }
+        else
+        {
+            SetBuildType(item.Type);
+            _buildPrice = item.Price;
+        }
     }
 
     // Update is called once per frame
@@ -44,14 +61,14 @@ public class ShopManager : MonoBehaviour
             if (GameManager.Instance.GetFieldStatus(x, y,out _).HasFlag(WorldTileStatusType.Buildable))
             {
                 _spriteRenderer.color = Color.white;
-                if (Input.GetMouseButtonDown(button: 0))
+                if (Input.GetMouseButtonDown(button: 0) && CanBuy(_buildPrice))
                 {
+                    GameManager.Instance.changeMoney(-_buildPrice);
                     GameManager.Instance.BuildSomething(x, y, _buildType);
                 }
             }
             else
             {
-                //_spriteRenderer.material.SetFloat("_GrayscaleAmount", 0.5f);
                 _spriteRenderer.color = Color.red;
             }
         }else if(onDestroyMode && Input.GetMouseButtonDown(0))
@@ -60,9 +77,8 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    public void SetBuildType(int typeID)
+    public void SetBuildType(WorldTileSpecificationType type)
     {
-        WorldTileSpecificationType type = (WorldTileSpecificationType)typeID;
         _buildType = type;
 
         WorldTileClass worldTile = cursor.GetComponent<WorldTileClass>();
@@ -83,6 +99,11 @@ public class ShopManager : MonoBehaviour
         }
         _spriteRenderer.color = Color.white;
         _spriteRenderer.material.SetFloat("_GrayscaleAmount", 0);
+    }
+
+    private bool CanBuy(int price)
+    {
+        return GameManager.Instance.Money >= price;
     }
 
 }

@@ -20,6 +20,7 @@ public class ShopManager : MonoBehaviour
     {
         _spriteRenderer = cursor.GetComponentInChildren<SpriteRenderer>();
         _spriteRenderer.sprite = null;
+        //_spriteRenderer.material.SetFloat("_GrayscaleAmount", 1);
     }
 
     // Update is called once per frame
@@ -29,9 +30,21 @@ public class ShopManager : MonoBehaviour
         Utils.GetXY(worldPosition: worldPosition, x: out int x, y: out int y);
         cursor.transform.position = new Vector2(x, y);
 
-        if (GameManager.Instance.buildModeOn && Input.GetMouseButtonDown(button: 0))
+        if (GameManager.Instance.buildModeOn)
         {
-            GameManager.Instance.BuildSomething(x, y, _buildType);
+            if (GameManager.Instance.GetFieldStatus(x, y,out _).HasFlag(WorldTileStatusType.Buildable))
+            {
+                _spriteRenderer.color = Color.white;
+                if (Input.GetMouseButtonDown(button: 0))
+                {
+                    GameManager.Instance.BuildSomething(x, y, _buildType);
+                }
+            }
+            else
+            {
+                //_spriteRenderer.material.SetFloat("_GrayscaleAmount", 0.5f);
+                _spriteRenderer.color = Color.red;
+            }
         }else if(Input.GetMouseButtonDown(button: 1))
         {
             GameManager.Instance.buildModeOn = false;

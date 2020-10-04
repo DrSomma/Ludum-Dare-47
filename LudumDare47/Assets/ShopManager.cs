@@ -14,6 +14,7 @@ public class ShopManager : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private WorldTileSpecificationType _buildType = WorldTileSpecificationType.Station;
     private GameObject _tempBuilding;
+    private bool onDestroyMode;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,14 @@ public class ShopManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetMouseButtonDown(button: 1))
+        {
+            GameManager.Instance.buildModeOn = false;
+            _spriteRenderer.sprite = null;
+            onDestroyMode = false;
+            return;
+        }
+
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position: Input.mousePosition);
         Utils.GetXY(worldPosition: worldPosition, x: out int x, y: out int y);
         cursor.transform.position = new Vector2(x, y);
@@ -45,10 +54,9 @@ public class ShopManager : MonoBehaviour
                 //_spriteRenderer.material.SetFloat("_GrayscaleAmount", 0.5f);
                 _spriteRenderer.color = Color.red;
             }
-        }else if(Input.GetMouseButtonDown(button: 1))
+        }else if(onDestroyMode && Input.GetMouseButtonDown(0))
         {
-            GameManager.Instance.buildModeOn = false;
-            _spriteRenderer.sprite = null;
+            GameManager.Instance.DeletTile(x, y);
         }
     }
 
@@ -62,6 +70,19 @@ public class ShopManager : MonoBehaviour
         worldTile.Instantiate(worldTileSpecification: type);
 
         GameManager.Instance.buildModeOn = true;
+
+        _spriteRenderer.material.SetFloat("_GrayscaleAmount", 1);
+    }
+
+    public void SetDestroyMode()
+    {
+        onDestroyMode = true;
+        GameManager.Instance.buildModeOn = false;
+        if(SpriteManager.Instance.TryGetSpriteByName("bulldozer", out Sprite bulli)){
+            _spriteRenderer.sprite = bulli;
+        }
+        _spriteRenderer.color = Color.white;
+        _spriteRenderer.material.SetFloat("_GrayscaleAmount", 0);
     }
 
 }

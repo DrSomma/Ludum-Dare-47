@@ -117,6 +117,17 @@ namespace Manager
             }
         }
 
+        public void DeletTile(int x, int y)
+        {
+            Debug.Log(_gridByTile.ContainsKey(key: new KeyValuePair<int, int>(key: x, value: y)));
+            if (_gridByTile.TryGetValue(key: new KeyValuePair<int, int>(key: x, value: y),
+                                             value: out WorldTileClass worldTile))
+            {
+                Destroy(worldTile.gameObject);
+                _gridByTile.Remove(key: new KeyValuePair<int, int>(key: x, value: y));
+            }
+        }
+
         private void GetInformation(int x, int y)
         {
             WorldTileStatusType worldTileStatus = GetFieldStatus(x: x, y: y, worldTile: out WorldTileClass worldTile);

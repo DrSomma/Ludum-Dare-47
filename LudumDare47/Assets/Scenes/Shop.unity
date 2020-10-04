@@ -658,6 +658,26 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1921101523459337521, guid: c2719e0e8684bcb478f642592fb2e87e, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1921101523459337521, guid: c2719e0e8684bcb478f642592fb2e87e, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1921101523459337521, guid: c2719e0e8684bcb478f642592fb2e87e, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1921101523459337521, guid: c2719e0e8684bcb478f642592fb2e87e, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1921101523459337521, guid: c2719e0e8684bcb478f642592fb2e87e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2b5041f505b0192439710ccb6afdc385, type: 2}
     - target: {fileID: 5086062562542190380, guid: c2719e0e8684bcb478f642592fb2e87e, type: 3}
       propertyPath: m_Name
       value: cursor
@@ -1214,7 +1234,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1600831497}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1531025692}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: SetDestroyMode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1600831497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1471,7 +1503,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1695464513}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1531025692}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: SetBuildType
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1695464513
 MonoBehaviour:
   m_ObjectHideFlags: 0

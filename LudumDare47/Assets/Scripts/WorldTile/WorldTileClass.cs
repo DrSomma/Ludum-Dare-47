@@ -11,7 +11,7 @@ namespace WorldTile
 
         [ReadOnly] public WorldTileSpecificationType worldTileSpecificationType;
 
-        private WorldTileSpecification _worldTileSpecification;
+        public WorldTileSpecification WorldTileSpecification;
 
         private void Awake()
         {
@@ -20,25 +20,28 @@ namespace WorldTile
 
         public void Instantiate(WorldTileSpecificationType worldTileSpecification)
         {
+            //Get Pos
+            Utils.GetXY(transform.position, out int x, out int y);
+
             switch (worldTileSpecification)
             {
                 case WorldTileSpecificationType.None:
                     worldTileSpecificationType = WorldTileSpecificationType.None;
                     return;
                 case WorldTileSpecificationType.Rail:
-                    _worldTileSpecification = new WorldTileRail();
+                    WorldTileSpecification = new WorldTileRail(x,y);
                     break;
                 case WorldTileSpecificationType.Station:
-                    _worldTileSpecification = new WorldTileStation();
+                    WorldTileSpecification = new WorldTileStation();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(paramName: nameof(worldTileSpecification),
                                                           actualValue: worldTileSpecification,
                                                           message: null);
             }
-
-            sprite.sprite = _worldTileSpecification.Sprite;
-            worldTileSpecificationType = _worldTileSpecification.Type;
+            
+            sprite.sprite = WorldTileSpecification.Sprite;
+            worldTileSpecificationType = WorldTileSpecification.Type;
         }
     }
 }

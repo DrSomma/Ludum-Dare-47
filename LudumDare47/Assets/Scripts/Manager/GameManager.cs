@@ -46,6 +46,56 @@ namespace Manager
                                color: Color.white,
                                duration: 100f);
             }
+
+            BuildTestRound();
+            SpawnTrain();
+        }
+
+        public TrainMovment train;
+        private void SpawnTrain()
+        {
+            //First Tile
+            train.StartTrain(2,2);
+        }
+
+        private void BuildTestRound()
+        {
+            currentSelectedWorldTileSpecificationType = WorldTileSpecificationType.Rail;
+            for (int i = 1; i <= 6; i++)
+            {
+                testBuild(i, 2);
+                
+            }
+            testBuild(6, 3);
+            testBuild(6, 4);
+            for (int i = 6; i > 0; i--)
+            {
+                testBuild(i, 5);
+            }
+            testBuild(1, 4);
+            testBuild(1, 3);
+            GetFieldStatus(1, 3, worldTile: out WorldTileClass lastTile);
+            WorldTileRail lastRail = (WorldTileRail)lastTile.WorldTileSpecification;
+            lastRail.NextRail = first;
+        }
+        private WorldTileRail last;
+        private WorldTileRail first;
+        private void testBuild(int x, int y)
+        {
+            BuildSomething(x, y);
+            GetFieldStatus(x: x, y: y, worldTile: out WorldTileClass curWorldTile);
+            WorldTileRail curRail = (WorldTileRail)curWorldTile.WorldTileSpecification;
+            if (last != null)
+            {
+                last.NextRail = curRail;
+                curRail.PreviousRail = last;
+            }
+            else
+            {
+                first = (WorldTileRail)curWorldTile.WorldTileSpecification;
+            }
+            last = curRail;
+
         }
 
         private void Update()

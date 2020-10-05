@@ -8,5 +8,8 @@ namespace WorldTile
         public WorldTileSpecificationType Type;
 
         public Sprite Sprite;
+
+        public int x;
+        public int y;
     }
 }

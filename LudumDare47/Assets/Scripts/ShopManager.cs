@@ -62,7 +62,7 @@ public class ShopManager : MonoBehaviour
                 _spriteRenderer.color = Color.white;
                 if (Input.GetMouseButtonDown(button: 0) && CanBuy(price: _buildPrice))
                 {
-                    GameManager.Instance.ChangeMoney(sumToAdd: -_buildPrice);
+                    GameManager.Instance.ChangeMoney(sumToAdd: -_buildPrice,new Vector3(x,y,0));
                     GameManager.Instance.BuildSomething(x: x, y: y, buildType: _buildType,level);
                 }
             }

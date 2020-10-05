@@ -103,7 +103,7 @@ public class TrainMovment : MonoBehaviour
         if(station != null)
         {
             WorldTileStation temp = station.WorldTileSpecification as WorldTileStation;
-            gameManager.ChangeMoney(CalcMoney(temp.UpgradeLevel));
+            gameManager.ChangeMoney(CalcMoney(temp.UpgradeLevel), transform.position);
             SoundManager.Instance.PlaySoundCoins();
             tratraveledTiles = 0;
         }

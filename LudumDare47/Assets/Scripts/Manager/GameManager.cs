@@ -43,6 +43,8 @@ namespace Manager
         public int startMoney = 1000;
         public int Money { get; private set; }
         public GameObject TrainPrefab;
+        public GameObject MoneyTextPrefab;
+        public GameObject canvas;
 
 
         public delegate void MoneyChanged(int money, int sumToAdd);
@@ -57,7 +59,7 @@ namespace Manager
         private void Awake()
         {
             _gridByTile = new Dictionary<KeyValuePair<int, int>, WorldTileClass>();
-            ChangeMoney(startMoney);
+            ChangeMoney(startMoney, Vector3.zero);
 
             // Grid to make visible the border of playing field
             if (drawDebugLine)
@@ -79,6 +81,18 @@ namespace Manager
                                color: Color.white,
                                duration: 100f);
             }
+        }
+
+        public void ChangeMoney(int sumToAdd, Vector3 pos)
+        {
+            if (pos != null)
+            {
+                GameObject temp = Instantiate(MoneyTextPrefab);
+                temp.transform.SetParent(canvas.transform);
+                temp.GetComponent<MoneyText>().Init(sumToAdd);
+                temp.transform.position = Camera.main.WorldToScreenPoint(pos);
+            }
+            ChangeMoney(sumToAdd);
         }
 
         public void ChangeMoney(int sumToAdd)

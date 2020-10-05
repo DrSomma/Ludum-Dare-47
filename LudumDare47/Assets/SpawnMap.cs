@@ -14,7 +14,7 @@ public class SpawnMap : MonoBehaviour
     {
         for (int x = 0; x < GameManager.Instance.width; x++)
         {
-            for (int y = 0; y < GameManager.Instance.height; y++)
+            for (int y = -1; y < GameManager.Instance.height+1; y++)
             {
                 GameObject temp =  Instantiate(prefab);
                 temp.transform.position = new Vector2(x, y);

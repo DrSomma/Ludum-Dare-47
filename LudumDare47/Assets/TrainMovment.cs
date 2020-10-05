@@ -16,19 +16,21 @@ public class TrainMovment : MonoBehaviour
     private bool rotateDone;
     private GameObject train_sprite;
 
+    private bool IsStopped = true;
+
     private void Awake()
     {
         //train_sprite = GetComponentInChildren<SpriteRenderer>().gameObject;
         train_sprite = this.gameObject;     
-    }
-
-    void Start()
-    {
         gameManager = GameManager.Instance;
     }
 
+
     void Update()
     {
+        if (IsStopped)
+            return;
+
         transform.position = Vector2.MoveTowards(transform.position, targetPos, Time.deltaTime * speed);
         if (!nextRail.IsCurve)
         {
@@ -150,6 +152,8 @@ public class TrainMovment : MonoBehaviour
 
         //Get  next
         GetNextTarget(curRail.GetNextRail().x, curRail.GetNextRail().y);
-        RotateToTarget(); 
+        RotateToTarget();
+
+        IsStopped = false;  
     }
 }

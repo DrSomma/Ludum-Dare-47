@@ -55,7 +55,7 @@ namespace Manager
         private void SpawnTrain()
         {
             //First Tile
-            train.StartTrain(2,2);
+            train.StartTrain(3,2);
         }
 
         private void BuildTestRound()

@@ -48,8 +48,8 @@ public class TrainMovment : MonoBehaviour
                 {
                     rotateDone = true;
                     train_sprite.transform.rotation = Quaternion.Euler(0, 0, -45);
-                    Vector2 curveDir = new Vector2(0.5f, 1f);
-                    targetPos = new Vector2(nextRail.x + 0.5f, nextRail.y + 1f);
+                    RotateTrain(out Vector2 curvP1, out Vector2 curvP2);
+                    targetPos = new Vector2(nextRail.x, nextRail.y) + curvP2;
                     targetPosCheck = targetPos;
                 }
                 else
@@ -59,10 +59,39 @@ public class TrainMovment : MonoBehaviour
                     curRail = nextRail;
                     GetNextTarget(nextRail.NextRail.x, nextRail.NextRail.y);
                 }
+
             }
             
         }
+        //        var dir = new Vector3(targetPosCheck.x, targetPosCheck.y, 0) - train_sprite.transform.position;
+        //        var angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
+        //Debug.Log(angle);
+        //        train_sprite.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
+
+
+    //private void Rotate()
+    //{
+    //    if (curRail.y < nextNextRail.y && curRail.x < nextNextRail.x)
+    //    {
+    //        //train_sprite.transform.rotation = Quaternion.Euler(0, 0, -45);
+    //    }
+    //    //Up->Left
+    //    else if (curRail.y < nextNextRail.y && curRail.x > nextNextRail.x)
+    //    {
+    //        //train_sprite.transform.rotation = Quaternion.Euler(0, 0, 90);
+    //    }
+    //    //Right->Down
+    //    else if (curRail.y > nextNextRail.y && curRail.x > nextNextRail.x)
+    //    {
+    //        //train_sprite.transform.rotation = Quaternion.Euler(0, 0, 45);
+    //    }
+    //    //Up->Right
+    //    else if (curRail.y > nextNextRail.y && curRail.x < nextNextRail.x)
+    //    {
+    //        //train_sprite.transform.rotation = Quaternion.Euler(0, 0, 45);
+    //    }
+    //}
 
     private void GetNextTarget(int nextGridX, int nextGridY)
     {
@@ -78,9 +107,10 @@ public class TrainMovment : MonoBehaviour
         }
         else
         {
-            Vector2 curveDir = new Vector2(0.5f, 1f);
-            targetPos = new Vector2(nextGridX, nextGridY);
-            targetPosCheck = targetPos + new Vector2(0, 0.5f);
+            rotateDone = false;
+            RotateTrain(out Vector2 curvP1, out _);
+            targetPos = new Vector2(nextGridX, nextGridY) ;
+            targetPosCheck = targetPos + curvP1;
         }
 
     }
@@ -91,26 +121,46 @@ public class TrainMovment : MonoBehaviour
         Gizmos.DrawSphere(targetPosCheck, 0.1f);
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(new Vector2(transform.position.x + 0.5f, transform.position.y + 0.5f), 0.1f);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(targetPos, 0.1f);
     }
 
-    private void RotateTrain(int nextGridX, int nextGridY)
+    private void RotateTrain(out Vector2 firstPoint, out Vector2 secondPoint)
     {
-        if (nextGridY > curRail.y)
-        {
-            train_sprite.transform.rotation = Quaternion.Euler(0, 0, -45);
-        }
-        else if (nextGridY < curRail.y)
-        {
-            train_sprite.transform.rotation = Quaternion.Euler(0, 0, 90);
-        }
+        WorldTileRail nextNextRail = nextRail.NextRail;
 
-        if (nextGridX > curRail.x)
+        //Left->Up
+        if (curRail.y < nextNextRail.y && curRail.x < nextNextRail.x)
         {
-            train_sprite.transform.rotation = Quaternion.Euler(0, 0, -0);
+            //train_sprite.transform.rotation = Quaternion.Euler(0, 0, -45);
+            firstPoint = new Vector2(0f, 0.5f);
+            secondPoint = new Vector2(0.5f, 1f);
         }
-        else if (nextGridX < curRail.x)
+        //Up->Left
+        else if (curRail.y < nextNextRail.y && curRail.x > nextNextRail.x)
         {
-            train_sprite.transform.rotation = Quaternion.Euler(0, 0, 45);
+            //train_sprite.transform.rotation = Quaternion.Euler(0, 0, 90);
+            firstPoint = new Vector2(0.5f, 0);
+            secondPoint = new Vector2(0f, 0.5f);
+        }
+        //Right->Down
+        else if (curRail.y > nextNextRail.y && curRail.x > nextNextRail.x)
+        {
+            //train_sprite.transform.rotation = Quaternion.Euler(0, 0, 45);
+            firstPoint = new Vector2(1f, 0.5f);
+            secondPoint = new Vector2(0.5f, 0f);
+        }
+        //Up->Right
+        else if (curRail.y > nextNextRail.y && curRail.x < nextNextRail.x)
+        {
+            //train_sprite.transform.rotation = Quaternion.Euler(0, 0, 45);
+            firstPoint = new Vector2(0.5f, 1f);
+            secondPoint = new Vector2(1f, 0.5f);
+        }
+        else
+        {
+            firstPoint = new Vector2(1f, 1f);
+            secondPoint = new Vector2(1f, 1f);
         }
     }
 

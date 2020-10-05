@@ -151,6 +151,7 @@ namespace WorldTile
                     break;
                 case CompassDirection.NE:
                 case CompassDirection.SW:
+                    IsCurve = true;
                     Sprite = _railCurve;
                     if (isAbove.HasValue && isAbove.Value)
                     {
@@ -164,6 +165,7 @@ namespace WorldTile
                     break;
                 case CompassDirection.SE:
                 case CompassDirection.NW:
+                    IsCurve = true;
                     Sprite = _railCurve;
                     if (isAbove.HasValue && isAbove.Value)
                     {

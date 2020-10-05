@@ -1978,6 +1978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e09fac123fbff342bfaa26b0fcd6c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TrainPrefab: {fileID: 4401213353363675970, guid: a3314691c0e39474cb13917cbf795780, type: 3}
 --- !u!4 &1923896033
 Transform:
   m_ObjectHideFlags: 0

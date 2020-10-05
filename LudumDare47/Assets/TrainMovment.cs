@@ -14,7 +14,6 @@ public class TrainMovment : MonoBehaviour
     private WorldTileRail nextRail;
     private WorldTileRail curRail;
     private Vector2 targetPos;
-    private Vector2 targetPosCheck;
     private bool rotateDone;
     private GameObject train_sprite;
 
@@ -33,7 +32,7 @@ public class TrainMovment : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, targetPos, Time.deltaTime * speed);
         if (!nextRail.isCurve)
         {
-            if (Vector2.Distance(new Vector2(transform.position.x + 0.5f, transform.position.y + 0.5f), targetPosCheck) < 0.005f)
+            if (Vector2.Distance(new Vector2(transform.position.x, transform.position.y), targetPos) < 0.005f)
             {
                 transform.position = targetPos;
                 curRail = nextRail;
@@ -42,7 +41,7 @@ public class TrainMovment : MonoBehaviour
         }
         else
         {
-            if (Vector2.Distance(new Vector2(transform.position.x + 0.5f, transform.position.y + 0.5f), targetPosCheck) < 0.005f)
+            if (Vector2.Distance(new Vector2(transform.position.x, transform.position.y), targetPos) < 0.005f)
             {
                 if (!rotateDone)
                 {
@@ -50,7 +49,6 @@ public class TrainMovment : MonoBehaviour
                     train_sprite.transform.rotation = Quaternion.Euler(0, 0, -45);
                     RotateTrain(out Vector2 curvP1, out Vector2 curvP2);
                     targetPos = new Vector2(nextRail.x, nextRail.y) + curvP2;
-                    targetPosCheck = targetPos;
                 }
                 else
                 {
@@ -70,29 +68,6 @@ public class TrainMovment : MonoBehaviour
     }
 
 
-    //private void Rotate()
-    //{
-    //    if (curRail.y < nextNextRail.y && curRail.x < nextNextRail.x)
-    //    {
-    //        //train_sprite.transform.rotation = Quaternion.Euler(0, 0, -45);
-    //    }
-    //    //Up->Left
-    //    else if (curRail.y < nextNextRail.y && curRail.x > nextNextRail.x)
-    //    {
-    //        //train_sprite.transform.rotation = Quaternion.Euler(0, 0, 90);
-    //    }
-    //    //Right->Down
-    //    else if (curRail.y > nextNextRail.y && curRail.x > nextNextRail.x)
-    //    {
-    //        //train_sprite.transform.rotation = Quaternion.Euler(0, 0, 45);
-    //    }
-    //    //Up->Right
-    //    else if (curRail.y > nextNextRail.y && curRail.x < nextNextRail.x)
-    //    {
-    //        //train_sprite.transform.rotation = Quaternion.Euler(0, 0, 45);
-    //    }
-    //}
-
     private void GetNextTarget(int nextGridX, int nextGridY)
     {
         Debug.Log($"Train Mov to {nextGridX}|{nextGridY}");
@@ -102,23 +77,20 @@ public class TrainMovment : MonoBehaviour
 
         if (!nextRail.isCurve)
         {
-            targetPos = new Vector2(nextGridX, nextGridY);
-            targetPosCheck = new Vector2(nextGridX + 0.5f, nextGridY + 0.5f);
+            targetPos = new Vector2(nextGridX + 0.5f, nextGridY + 0.5f);
         }
         else
         {
             rotateDone = false;
             RotateTrain(out Vector2 curvP1, out _);
-            targetPos = new Vector2(nextGridX, nextGridY) ;
-            targetPosCheck = targetPos + curvP1;
+            targetPos = new Vector2(nextGridX + 0.5f, nextGridY + 0.5f); ;
+            //targetPosCheck = targetPos + curvP1;
         }
 
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(targetPosCheck, 0.1f);
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(new Vector2(transform.position.x + 0.5f, transform.position.y + 0.5f), 0.1f);
         Gizmos.color = Color.yellow;
@@ -167,12 +139,17 @@ public class TrainMovment : MonoBehaviour
     public void StartTrain(int x, int y)
     {
         Debug.Log($"Start Train @ {x}|{y}");
-        transform.position = new Vector2(x, y);
+        transform.position = new Vector2(x+0.5f, y + 0.5f);
         WorldTileStatusType status = gameManager.GetFieldStatus(x: x, y: y, worldTile: out WorldTileClass curWorldTile);
         Debug.Log(status);
         curRail = (WorldTileRail)curWorldTile.WorldTileSpecification;
 
         //Get  next
         GetNextTarget(curRail.NextRail.x, curRail.NextRail.y);
+    }
+
+    private void setPos(int x, int y)
+    {
+
     }
 }

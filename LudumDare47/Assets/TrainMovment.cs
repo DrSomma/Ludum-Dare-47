@@ -12,15 +12,20 @@ public class TrainMovment : MonoBehaviour
     //TODO SOLLTE SINGELTEN VERWENDEN!!!!!!!!!!!!
     public GameManager gameManager;
     private WorldTileRail nextRail;
-    private int nextGridX;
-    private int nextGridY;
-    private Transform targetTransform;
+    private WorldTileRail curRail;
     private Vector2 targetPos;
+    private GameObject train_sprite;
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        train_sprite = GetComponentInChildren<SpriteRenderer>().gameObject;
+    }
+
     void Start()
     {
         //gameManager = GameManager.Instance;
+
+        
     }
 
     // Update is called once per frame
@@ -29,18 +34,35 @@ public class TrainMovment : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, targetPos, Time.deltaTime * speed);
         if(Vector2.Distance(transform.position,targetPos) < 0.1f)
         {
-            
+            curRail = nextRail;
             GetNextTarget(nextRail.NextRail.x, nextRail.NextRail.y);
         }
     }
 
-    private void GetNextTarget(int x, int y)
+    private void GetNextTarget(int nextGridX, int nextGridY)
     {
-        Debug.Log($"Train Mov to {x}|{y}");
-        gameManager.GetFieldStatus(x: x, y: y, worldTile: out WorldTileClass nextWorldTile);
+        Debug.Log($"Train Mov to {nextGridX}|{nextGridY}");
+        gameManager.GetFieldStatus(x: nextGridX, y: nextGridY, worldTile: out WorldTileClass nextWorldTile);
         nextRail = (WorldTileRail)nextWorldTile.WorldTileSpecification;
-        nextGridX = x;
-        nextGridY = y;
+
+        if (nextGridY > curRail.y)
+        {
+            train_sprite.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (nextGridY < curRail.y)
+        {
+            train_sprite.transform.rotation = Quaternion.Euler(0, 0, 180);
+        }
+
+        if (nextGridX > curRail.x)
+        {
+            train_sprite.transform.rotation = Quaternion.Euler(0, 0, -90);
+        }
+        else if (nextGridX < curRail.x)
+        {
+            train_sprite.transform.rotation = Quaternion.Euler(0, 0, 90);
+        }
+
         targetPos = new Vector2(nextGridX, nextGridY);
     }
 
@@ -50,7 +72,7 @@ public class TrainMovment : MonoBehaviour
         transform.position = new Vector2(x, y);
         WorldTileStatusType status = gameManager.GetFieldStatus(x: x, y: y, worldTile: out WorldTileClass curWorldTile);
         Debug.Log(status);
-        WorldTileRail curRail = (WorldTileRail)curWorldTile.WorldTileSpecification;
+        curRail = (WorldTileRail)curWorldTile.WorldTileSpecification;
 
         //Get  next
         GetNextTarget(curRail.NextRail.x, curRail.NextRail.y);

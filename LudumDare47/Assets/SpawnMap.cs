@@ -24,6 +24,7 @@ public class SpawnMap : MonoBehaviour
                 if(SpriteManager.Instance.TryGetSpriteByName(randomName, out Sprite sprite))
                 {
                     render.sprite = sprite;
+                    render.sortingOrder = -1;
                 }
 
                 if(Random.Range(0f, 1f) > 0.8f)

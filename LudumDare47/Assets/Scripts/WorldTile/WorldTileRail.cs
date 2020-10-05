@@ -16,6 +16,7 @@ namespace WorldTile
         private int ObjectId => _parent.objectId;
         private Vector2 Position => _parent.position;
         private bool _trackFinished = false;
+        private int _trackRailCount = 0;
         private WorldTileRail _previousRail;
         private WorldTileRail _nextRail;
         private Sprite _railCurve;
@@ -260,6 +261,19 @@ namespace WorldTile
             if (recursive != null)
             {
                 Debug.Log(message: $"Loop with {countRails} rails. Nice!");
+                _trackFinished = true;
+                _trackRailCount = countRails;
+
+                recursive = _nextRail;
+
+                while (recursive != null && recursive.ObjectId != ObjectId)
+                {
+                    recursive._trackFinished = true;
+                    recursive._trackRailCount = countRails;
+                    recursive = recursive._nextRail;
+
+                }
+
                 return true;
             }
             else

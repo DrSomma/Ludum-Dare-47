@@ -54,7 +54,7 @@ namespace Manager
         private void Start()
         {
             _gridByTile = new Dictionary<KeyValuePair<int, int>, WorldTileClass>();
-            changeMoney(startMoney);
+            ChangeMoney(startMoney);
 
             // Grid to make visible the border of playing field
             if (drawDebugLine)
@@ -78,18 +78,13 @@ namespace Manager
             }
         }
 
-        public void changeMoney(int sumToAdd)
+        public void ChangeMoney(int sumToAdd)
         {
             if(sumToAdd > 0 || Money >= sumToAdd)
             {
                 Money += sumToAdd;
-                OnMoneyChanged(Money, sumToAdd);
+                OnMoneyChanged?.Invoke(Money, sumToAdd);
             }
-        }
-
-        private void Update()
-        {
-
         }
 
         public void BuildSomething(int x, int y, WorldTileSpecificationType buildType)
@@ -124,25 +119,16 @@ namespace Manager
             }
         }
 
-        public void DeletTile(int x, int y)
+        public void DeleteTile(int x, int y)
         {
             Debug.Log(_gridByTile.ContainsKey(key: new KeyValuePair<int, int>(key: x, value: y)));
             if (_gridByTile.TryGetValue(key: new KeyValuePair<int, int>(key: x, value: y),
-                                             value: out WorldTileClass worldTile))
+                                        value: out WorldTileClass worldTile))
             {
                 Destroy(worldTile.gameObject);
                 _gridByTile.Remove(key: new KeyValuePair<int, int>(key: x, value: y));
             }
         }
-
-        private void DoActionOnWorldTile(int x, int y)
-        {
-            if (IsValidField(x: x, y: y))
-            {
-                //TODO?
-            }
-        }
-
         private bool IsValidField(int x, int y)
         {
             return x >= 0 && y >= 0 && x < width && y < height;

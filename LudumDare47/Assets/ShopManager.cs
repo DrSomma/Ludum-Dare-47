@@ -1,7 +1,6 @@
 ﻿using amazeIT;
 using Enum;
 using Manager;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WorldTile;
@@ -9,75 +8,73 @@ using WorldTile;
 public class ShopManager : MonoBehaviour
 {
     public GameObject cursor;
-    public Dictionary<int,int> PriceTable;
+    public Dictionary<int, int> PriceTable;
 
     private SpriteRenderer _spriteRenderer;
     private WorldTileSpecificationType _buildType = WorldTileSpecificationType.Station;
     private int _buildPrice;
     private GameObject _tempBuilding;
-    private bool onDestroyMode;
+    private bool _onDestroyMode;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _spriteRenderer = cursor.GetComponentInChildren<SpriteRenderer>();
         _spriteRenderer.sprite = null;
         //_spriteRenderer.material.SetFloat("_GrayscaleAmount", 1);
 
         ShopItem.OnShopItemPressed += SetBuildType;
-
     }
 
-    public void SetBuildType(ShopItem item)
+    private void SetBuildType(ShopItem item)
     {
-        if(item.Type == WorldTileSpecificationType.None)
+        if (item.type == WorldTileSpecificationType.None)
         {
             SetDestroyMode();
         }
         else
         {
-            SetBuildType(item.Type);
-            _buildPrice = item.Price;
+            SetBuildType(type: item.type);
+            _buildPrice = item.price;
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(button: 1))
         {
             GameManager.Instance.buildModeOn = false;
             _spriteRenderer.sprite = null;
-            onDestroyMode = false;
+            _onDestroyMode = false;
             return;
         }
 
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position: Input.mousePosition);
         Utils.GetXY(worldPosition: worldPosition, x: out int x, y: out int y);
-        cursor.transform.position = new Vector2(x, y);
+        cursor.transform.position = new Vector2(x: x, y: y);
 
         if (GameManager.Instance.buildModeOn)
         {
-            if (GameManager.Instance.GetFieldStatus(x, y,out _).HasFlag(WorldTileStatusType.Buildable))
+            if (GameManager.Instance.GetFieldStatus(x: x, y: y, worldTile: out _).HasFlag(flag: WorldTileStatusType.Buildable))
             {
                 _spriteRenderer.color = Color.white;
-                if (Input.GetMouseButtonDown(button: 0) && CanBuy(_buildPrice))
+                if (Input.GetMouseButtonDown(button: 0) && CanBuy(price: _buildPrice))
                 {
-                    GameManager.Instance.changeMoney(-_buildPrice);
-                    GameManager.Instance.BuildSomething(x, y, _buildType);
+                    GameManager.Instance.ChangeMoney(sumToAdd: -_buildPrice);
+                    GameManager.Instance.BuildSomething(x: x, y: y, buildType: _buildType);
                 }
             }
             else
             {
                 _spriteRenderer.color = Color.red;
             }
-        }else if(onDestroyMode && Input.GetMouseButtonDown(0))
+        }
+        else if (_onDestroyMode && Input.GetMouseButtonDown(button: 0))
         {
-            GameManager.Instance.DeletTile(x, y);
+            GameManager.Instance.DeleteTile(x: x, y: y);
         }
     }
 
-    public void SetBuildType(WorldTileSpecificationType type)
+    private void SetBuildType(WorldTileSpecificationType type)
     {
         _buildType = type;
 
@@ -87,23 +84,24 @@ public class ShopManager : MonoBehaviour
 
         GameManager.Instance.buildModeOn = true;
 
-        _spriteRenderer.material.SetFloat("_GrayscaleAmount", 1);
+        _spriteRenderer.material.SetFloat(name: "_GrayscaleAmount", value: 1);
     }
 
     public void SetDestroyMode()
     {
-        onDestroyMode = true;
+        _onDestroyMode = true;
         GameManager.Instance.buildModeOn = false;
-        if(SpriteManager.Instance.TryGetSpriteByName("bulldozer", out Sprite bulli)){
+        if (SpriteManager.Instance.TryGetSpriteByName(spriteName: "bulldozer", outSprite: out Sprite bulli))
+        {
             _spriteRenderer.sprite = bulli;
         }
+
         _spriteRenderer.color = Color.white;
-        _spriteRenderer.material.SetFloat("_GrayscaleAmount", 0);
+        _spriteRenderer.material.SetFloat(name: "_GrayscaleAmount", value: 0);
     }
 
     private bool CanBuy(int price)
     {
         return GameManager.Instance.Money >= price;
     }
-
 }

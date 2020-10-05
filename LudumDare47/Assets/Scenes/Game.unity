@@ -240,7 +240,7 @@ MonoBehaviour:
   height: 10
   drawDebugLine: 1
   buildModeOn: 0
-  currentSelectedWorldTileSpecificationType: 1
+  startMoney: 1000
 --- !u!4 &1346281127
 Transform:
   m_ObjectHideFlags: 0

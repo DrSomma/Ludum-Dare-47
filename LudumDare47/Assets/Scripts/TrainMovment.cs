@@ -2,6 +2,7 @@
 using Manager;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using WorldTile;
 
@@ -17,6 +18,7 @@ public class TrainMovment : MonoBehaviour
     private GameObject train_sprite;
 
     private bool IsStopped = true;
+    public int tratraveledTiles = 0;
 
     private void Awake()
     {
@@ -74,8 +76,30 @@ public class TrainMovment : MonoBehaviour
         train_sprite.transform.rotation = Quaternion.AngleAxis(360 - angle, Vector3.forward);
     }
 
+    private int CalcMoney()
+    {
+        return (int) Mathf.Pow(tratraveledTiles,1.3f);
+    }
+    
     private void GetNextTarget(int nextGridX, int nextGridY)
     {
+        //check for station
+        List<WorldTileClass> neighbours = gameManager.GetNeighbourTiles(curRail.x, curRail.y);
+        var station = neighbours.FirstOrDefault(x => x.worldTileSpecificationType == WorldTileSpecificationType.Station);
+        if(station != null)
+        {
+            gameManager.ChangeMoney(CalcMoney());
+            tratraveledTiles = 0;
+        }
+        else
+        {
+            tratraveledTiles++;
+            if(tratraveledTiles > curRail._trackRailCount)
+            {
+                tratraveledTiles = 0;
+            }
+        }
+
         //Debug.Log($"Train Mov to {nextGridX}|{nextGridY}");
         gameManager.GetFieldStatus(x: nextGridX, y: nextGridY, worldTile: out WorldTileClass nextWorldTile);
         nextRail = (WorldTileRail)nextWorldTile.WorldTileSpecification;
@@ -175,6 +199,9 @@ public class TrainMovment : MonoBehaviour
         //Get  next
         GetNextTarget(curRail.GetNextRail().x, curRail.GetNextRail().y);
         RotateToTarget();
+
+        tratraveledTiles = 0;
+
 
         IsStopped = false;  
     }

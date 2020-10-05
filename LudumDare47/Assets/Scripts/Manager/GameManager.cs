@@ -134,7 +134,7 @@ namespace Manager
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        private List<WorldTileClass> GetNeighbourTiles(int x, int y)
+        public List<WorldTileClass> GetNeighbourTiles(int x, int y)
         {
             List<WorldTileClass> result = new List<WorldTileClass>();
 

@@ -16,7 +16,7 @@ namespace WorldTile
         private int ObjectId => _parent.objectId;
         private Vector2 Position => _parent.position;
         public bool _trackFinished = false;
-        private int _trackRailCount = 0;
+        public int _trackRailCount = 0;
         private WorldTileRail _previousRail;
         private WorldTileRail _nextRail;
         private Sprite _railCurve;

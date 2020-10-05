@@ -128,6 +128,35 @@ namespace Manager
             }
         }
 
+        public void BuildSomethingForced(int x, int y, WorldTileSpecificationType buildType)
+        {
+            WorldTileStatusType worldTileStatus = GetFieldStatus(x: x, y: y, worldTile: out WorldTileClass worldTile);
+
+            if (worldTileStatus.HasFlag(flag: WorldTileStatusType.NotInitialized))
+            {
+                // Initialize
+                GameObject gameObject = Instantiate(original: worldTilePrefab,
+                                                    position: new Vector3(x: x, y: y),
+                                                    rotation: Quaternion.identity);
+
+                worldTile = gameObject.GetComponent<WorldTileClass>();
+
+                worldTile.Instantiate(id: _nextObjectId++,
+                                      pos: new Vector2(x: x, y: y),
+                                      worldTileSpecification: buildType,
+                                      neighbours: GetNeighbourTiles(x: x, y: y));
+
+                _gridByTile.Add(key: new KeyValuePair<int, int>(key: x, value: y), value: worldTile);
+            }
+            else if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Buildable))
+            {
+                worldTile.Instantiate(id: _nextObjectId++,
+                                      pos: new Vector2(x: x, y: y),
+                                      worldTileSpecification: buildType,
+                                      neighbours: GetNeighbourTiles(x: x, y: y));
+            }
+        }
+
 
         /// <summary>
         /// Get the neighbour tiles of field x, y

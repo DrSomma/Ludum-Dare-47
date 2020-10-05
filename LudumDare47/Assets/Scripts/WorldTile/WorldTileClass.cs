@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using amazeIT;
 using Enum;
+using Manager;
 using UnityEngine;
 
 namespace WorldTile
@@ -8,6 +10,8 @@ namespace WorldTile
     public class WorldTileClass : MonoBehaviour
     {
         public SpriteRenderer sprite;
+        public Vector2 position;
+        public int objectId;
 
         [ReadOnly] public WorldTileSpecificationType worldTileSpecificationType;
 
@@ -18,10 +22,37 @@ namespace WorldTile
             worldTileSpecificationType = WorldTileSpecificationType.None;
         }
 
-        public void Instantiate(WorldTileSpecificationType worldTileSpecification)
+        public void InstantiateForShop(WorldTileSpecificationType worldTileSpecification)
         {
-            //Get Pos
-            Utils.GetXY(transform.position, out int x, out int y);
+            worldTileSpecificationType = worldTileSpecification;
+            Sprite outSprite;
+
+            switch (worldTileSpecification)
+            {
+                case WorldTileSpecificationType.None:
+                    break;
+                case WorldTileSpecificationType.Rail:
+                    if (SpriteManager.Instance.TryGetSpriteByName(spriteName: "rail_straight", outSprite: out outSprite))
+                    {
+                        sprite.sprite = outSprite;
+                    }
+                    break;
+                case WorldTileSpecificationType.Station:
+                    if (SpriteManager.Instance.TryGetSpriteByName(spriteName: "station", outSprite: out outSprite))
+                    {
+                        sprite.sprite = outSprite;
+                    }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(worldTileSpecification), worldTileSpecification, null);
+            }
+        }
+
+        public void Instantiate(int id, Vector2 pos, WorldTileSpecificationType worldTileSpecification, List<WorldTileClass> neighbours)
+        {
+            objectId = id;
+            position = pos;
+            worldTileSpecificationType = worldTileSpecification;
 
             switch (worldTileSpecification)
             {
@@ -29,7 +60,7 @@ namespace WorldTile
                     worldTileSpecificationType = WorldTileSpecificationType.None;
                     return;
                 case WorldTileSpecificationType.Rail:
-                    WorldTileSpecification = new WorldTileRail(x,y);
+                    WorldTileSpecification = new WorldTileRail(parent: this, neighbours: neighbours);
                     break;
                 case WorldTileSpecificationType.Station:
                     WorldTileSpecification = new WorldTileStation();
@@ -39,18 +70,13 @@ namespace WorldTile
                                                           actualValue: worldTileSpecification,
                                                           message: null);
             }
-            
+
             sprite.sprite = WorldTileSpecification.Sprite;
-            worldTileSpecificationType = WorldTileSpecification.Type;
         }
 
-        private void OnDrawGizmos()
+        public void UpdateSprite()
         {
-            Vector3 center = new Vector3(transform.position.x, transform.position.y, 0);
-            Gizmos.DrawSphere(center, 0.1f);
-            Gizmos.color = Color.red;
-            Vector3 center2 = new Vector3(transform.position.x+0.5f, transform.position.y + 0.5f, 0);
-            Gizmos.DrawSphere(center2, 0.1f);
+            sprite.sprite = WorldTileSpecification?.Sprite;
         }
     }
 }

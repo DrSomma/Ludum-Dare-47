@@ -13,6 +13,7 @@ public class ShopManager : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private WorldTileSpecificationType _buildType = WorldTileSpecificationType.Station;
     private int _buildPrice;
+    private int level;
     private GameObject _tempBuilding;
     private bool _onDestroyMode;
 
@@ -35,6 +36,7 @@ public class ShopManager : MonoBehaviour
         {
             SetBuildType(type: item.type);
             _buildPrice = item.price;
+            level = item.level;
         }
     }
 
@@ -60,7 +62,7 @@ public class ShopManager : MonoBehaviour
                 if (Input.GetMouseButtonDown(button: 0) && CanBuy(price: _buildPrice))
                 {
                     GameManager.Instance.ChangeMoney(sumToAdd: -_buildPrice);
-                    GameManager.Instance.BuildSomething(x: x, y: y, buildType: _buildType);
+                    GameManager.Instance.BuildSomething(x: x, y: y, buildType: _buildType,level);
                 }
             }
             else
@@ -80,7 +82,7 @@ public class ShopManager : MonoBehaviour
 
         WorldTileClass worldTile = cursor.GetComponent<WorldTileClass>();
 
-        worldTile.InstantiateForShop(worldTileSpecification: type);
+        worldTile.InstantiateForShop(worldTileSpecification: type, level);
 
         GameManager.Instance.buildModeOn = true;
 

@@ -5,6 +5,7 @@ using TMPro;
 public class ShopItem : MonoBehaviour
 {
     public int price = 100;
+    public int level = 0;
     public WorldTileSpecificationType type;
 
     public TextMeshProUGUI priceTag;

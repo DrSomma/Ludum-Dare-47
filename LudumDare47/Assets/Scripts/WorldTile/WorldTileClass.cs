@@ -22,7 +22,7 @@ namespace WorldTile
             worldTileSpecificationType = WorldTileSpecificationType.None;
         }
 
-        public void InstantiateForShop(WorldTileSpecificationType worldTileSpecification)
+        public void InstantiateForShop(WorldTileSpecificationType worldTileSpecification, int level)
         {
             worldTileSpecificationType = worldTileSpecification;
             Sprite outSprite;
@@ -32,13 +32,13 @@ namespace WorldTile
                 case WorldTileSpecificationType.None:
                     break;
                 case WorldTileSpecificationType.Rail:
-                    if (SpriteManager.Instance.TryGetSpriteByName(spriteName: "rail_straight", outSprite: out outSprite))
+                    if (SpriteManager.Instance.TryGetSpriteByName(spriteName: $"rail_straight_{level}", outSprite: out outSprite))
                     {
                         sprite.sprite = outSprite;
                     }
                     break;
                 case WorldTileSpecificationType.Station:
-                    if (SpriteManager.Instance.TryGetSpriteByName(spriteName: "station", outSprite: out outSprite))
+                    if (SpriteManager.Instance.TryGetSpriteByName(spriteName: $"station_{level}", outSprite: out outSprite))
                     {
                         sprite.sprite = outSprite;
                     }
@@ -55,7 +55,7 @@ namespace WorldTile
             }
         }
 
-        public void Instantiate(int id, Vector2 pos, WorldTileSpecificationType worldTileSpecification, List<WorldTileClass> neighbours)
+        public void Instantiate(int id, Vector2 pos, WorldTileSpecificationType worldTileSpecification, List<WorldTileClass> neighbours, int level)
         {
             objectId = id;
             position = pos;
@@ -67,11 +67,11 @@ namespace WorldTile
                     worldTileSpecificationType = WorldTileSpecificationType.None;
                     return;
                 case WorldTileSpecificationType.Rail:
-                    WorldTileSpecification = new WorldTileRail(parent: this, neighbours: neighbours);
+                    WorldTileSpecification = new WorldTileRail(parent: this, neighbours: neighbours, level);
 
                     break;
                 case WorldTileSpecificationType.Station:
-                    WorldTileSpecification = new WorldTileStation();
+                    WorldTileSpecification = new WorldTileStation(level);
                     break;
                 case WorldTileSpecificationType.Environment:
                     WorldTileSpecification = new WorldTileEnvironment();

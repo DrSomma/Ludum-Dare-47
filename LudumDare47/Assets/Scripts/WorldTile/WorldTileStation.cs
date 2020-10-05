@@ -6,11 +6,14 @@ namespace WorldTile
 {
     public class WorldTileStation : WorldTileSpecification
     {
-        public WorldTileStation()
+        public int UpgradeLevel;
+
+        public WorldTileStation(int level)
         {
+            UpgradeLevel = level;
             Type = WorldTileSpecificationType.Station;
 
-            if (SpriteManager.Instance.TryGetSpriteByName(spriteName: "station", outSprite: out Sprite sprite))
+            if (SpriteManager.Instance.TryGetSpriteByName(spriteName: $"station_{UpgradeLevel}", outSprite: out Sprite sprite))
             {
                 Sprite = sprite;
             }

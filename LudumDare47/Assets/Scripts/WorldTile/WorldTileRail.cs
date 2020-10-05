@@ -9,6 +9,7 @@ namespace WorldTile
 {
     public class WorldTileRail : WorldTileSpecification
     {
+        public int UpgradeLevel = 0;
         public bool IsCurve;
 
         public CompassDirection CompassDirection;
@@ -24,9 +25,10 @@ namespace WorldTile
 
         private WorldTileClass _parent;
 
-        public WorldTileRail(WorldTileClass parent, List<WorldTileClass> neighbours)
+        public WorldTileRail(WorldTileClass parent, List<WorldTileClass> neighbours, int level)
         {
             _parent = parent;
+            UpgradeLevel = level;
 
             List<WorldTileRail> railList = neighbours.Where(predicate: n => n != null &&
                                                                             n.worldTileSpecificationType ==
@@ -48,12 +50,12 @@ namespace WorldTile
 
         private void GetSprites()
         {
-            if (SpriteManager.Instance.TryGetSpriteByName(spriteName: "rail_curve", outSprite: out Sprite curve))
+            if (SpriteManager.Instance.TryGetSpriteByName(spriteName: $"rail_curve_{UpgradeLevel}", outSprite: out Sprite curve))
             {
                 _railCurve = curve;
             }
 
-            if (SpriteManager.Instance.TryGetSpriteByName(spriteName: "rail_straight", outSprite: out Sprite straight))
+            if (SpriteManager.Instance.TryGetSpriteByName(spriteName: $"rail_straight_{UpgradeLevel}", outSprite: out Sprite straight))
             {
                 _railStraight = straight;
             }

@@ -34,10 +34,15 @@ public class StartTrackSpawner : MonoBehaviour
         }
         BuildRail(1, 4);
         BuildRail(1, 3);
+        BuildStaton(3, 1);
     }
 
     private void BuildRail(int x, int y)
     {
         GameManager.Instance.BuildSomething(x, y,WorldTileSpecificationType.Rail);
+    }
+    private void BuildStaton(int x, int y)
+    {
+        GameManager.Instance.BuildSomething(x, y, WorldTileSpecificationType.Station);
     }
 }

@@ -22,6 +22,11 @@ namespace WorldTile
             worldTileSpecificationType = WorldTileSpecificationType.None;
         }
 
+        private void OnDestroy()
+        {
+            SoundManager.Instance.PlaySoundRemove();
+        }
+
         public void InstantiateForShop(WorldTileSpecificationType worldTileSpecification)
         {
             worldTileSpecificationType = worldTileSpecification;

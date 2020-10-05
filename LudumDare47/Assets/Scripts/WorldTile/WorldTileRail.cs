@@ -43,6 +43,7 @@ namespace WorldTile
             CheckForLoop();
 
             Type = WorldTileSpecificationType.Rail;
+            SoundManager.Instance.PlaySoundPlaceRail();
         }
 
 

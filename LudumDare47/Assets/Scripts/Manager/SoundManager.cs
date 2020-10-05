@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Manager
 {
@@ -7,13 +9,24 @@ namespace Manager
         public static SoundManager Instance;
 
         public GameObject soundNodePrefab;
-        public AudioClip testSound;
+        public List<AudioClip> birds;
+        public AudioClip coins;
+        public AudioClip placeRail;
+        public AudioClip placeStation;
+        public AudioClip remove;
+        public AudioClip uiClick;
 
-        [Header("For Background Music")] public bool muteMusic;
+
+        [Header("For Background Music")]
+        public bool muteMusic;
         public bool muteSounds;
+        public bool muteAmbientSound;
         public AudioSource musicSource;
+        public AudioClip ambientSound;
         public AudioClip musicStart;
         public AudioClip musicLoop;
+
+        private AudioSource _ambientSoundAudioSource;
 
         public void Awake()
         {
@@ -40,6 +53,22 @@ namespace Manager
                 musicSource.loop = true;
             }
 
+            if (ambientSound != null)
+            {
+                float audioClipLength = ambientSound.length;
+
+                GameObject soundNode = Instantiate(soundNodePrefab);
+
+                _ambientSoundAudioSource = soundNode.GetComponent<AudioSource>();
+
+                _ambientSoundAudioSource.clip = ambientSound;
+                _ambientSoundAudioSource.Play();
+            }
+
+            StartCoroutine(routine: PlayBirdSounds());
+
+
+
             //if (!MuteMusic)
             //{
             //    musicSource.Play();
@@ -58,6 +87,12 @@ namespace Manager
                 musicSource.mute = false;
             }
 
+            if (_ambientSoundAudioSource != null)
+            {
+                _ambientSoundAudioSource.mute = muteAmbientSound;
+            }
+
+
             //if (!MuteMusic && !musicSource.isPlaying)
             //{
             //    musicSource.Play();
@@ -69,9 +104,44 @@ namespace Manager
             //}
         }
 
-        public void PlayTestSound()
+        private IEnumerator PlayBirdSounds()
         {
-            PlaySound(testSound);
+            for(;;)
+            {
+                PlayRandomBirdSound();
+                yield return new WaitForSeconds(seconds: Random.Range( min: 5f, max: 15f));
+            }
+        }
+
+        private void PlayRandomBirdSound()
+        {
+            int index = Mathf.FloorToInt(f: Random.value * birds.Count);
+            PlaySound(audioClip: birds[index: index]);
+        }
+
+        public void PlaySoundCoins()
+        {
+            PlaySound(audioClip: coins);
+        }
+
+        public void PlaySoundPlaceRail()
+        {
+            PlaySound(audioClip: placeRail);
+        }
+
+        public void PlaySoundPlaceStation()
+        {
+            PlaySound(audioClip: placeStation);
+        }
+
+        public void PlaySoundRemove()
+        {
+            PlaySound(audioClip: remove);
+        }
+
+        public void PlaySoundUiClick()
+        {
+            PlaySound(audioClip: uiClick);
         }
 
         private void PlaySound(AudioClip audioClip)

@@ -13,6 +13,7 @@ namespace WorldTile
             if (SpriteManager.Instance.TryGetSpriteByName(spriteName: "station", outSprite: out Sprite sprite))
             {
                 Sprite = sprite;
+                SoundManager.Instance.PlaySoundPlaceStation();
             }
         }
 

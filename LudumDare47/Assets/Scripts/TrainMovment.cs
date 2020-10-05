@@ -89,6 +89,7 @@ public class TrainMovment : MonoBehaviour
         if(station != null)
         {
             gameManager.ChangeMoney(CalcMoney());
+            SoundManager.Instance.PlaySoundCoins();
             tratraveledTiles = 0;
         }
         else

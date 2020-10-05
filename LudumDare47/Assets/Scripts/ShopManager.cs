@@ -33,6 +33,7 @@ public class ShopManager : MonoBehaviour
         }
         else
         {
+            SoundManager.Instance.PlaySoundUiClick();
             SetBuildType(type: item.type);
             _buildPrice = item.price;
         }

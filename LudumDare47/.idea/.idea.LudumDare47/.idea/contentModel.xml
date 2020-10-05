@@ -23,6 +23,8 @@
           </e>
           <e p="ShopItem.cs" t="Include" />
           <e p="ShopManager.cs" t="Include" />
+          <e p="StartTrackSpawner.cs" t="Include" />
+          <e p="TrainMovment.cs" t="Include" />
           <e p="UiMoney.cs" t="Include" />
           <e p="WorldTile" t="Include">
             <e p="WorldTileClass.cs" t="Include" />

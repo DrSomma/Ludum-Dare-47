@@ -20,14 +20,53 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d90bb05-f1ae-43ae-ab22-a3048c71824d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Enum/CompassDirection.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Enum/CompassDirection.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/ambient.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/ambient.mp3.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/birds1.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/birds1.mp3.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/birds2.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/birds2.mp3.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/birds3.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/birds3.mp3.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/birds4.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/birds4.mp3.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/birds5.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/birds5.mp3.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/birds6.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/birds6.mp3.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/birds7.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/birds7.mp3.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/birds8.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/birds8.mp3.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/coins.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/coins.mp3.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/long.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/long.mp3.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/loop.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/loop.mp3.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/place_rail.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/place_rail.wav.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/place_station.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/place_station.mp3.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/remove.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/remove.mp3.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/short.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/short.mp3.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/start.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/start.mp3.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/start_with_loop.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/start_with_loop.mp3.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/ui_click.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sounds/ui_click.wav.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LudumDare47/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LudumDare47/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LudumDare47/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LudumDare47/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Manager/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Manager/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Manager/SoundManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Manager/SoundManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ShopManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ShopManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileClass.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileClass.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileRail.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileRail.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileStation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileStation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sounds/beep.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sounds/beep.wav.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +94,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/Manager/SoundManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Grid/Grid.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Grid/GridClass.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Grid.cs" />
@@ -63,7 +101,6 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IWorldTileSpecification.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileSpecification.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Manager/SpriteManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileStation.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/SpriteClass.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/UtilsClass.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/amazeIT/Utils.cs" />
@@ -73,11 +110,13 @@
         <option value="$PROJECT_DIR$/Assets/ShopItem.cs" />
         <option value="$PROJECT_DIR$/Assets/ShopManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Enum/CompassDirection.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileRail.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ShopManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileClass.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileClass.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Manager/GameManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Manager/SoundManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ShopManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileRail.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileStation.cs" />
       </list>
     </option>
   </component>
@@ -140,6 +179,7 @@
       <workItem from="1601681708307" duration="5602000" />
       <workItem from="1601688920092" duration="20332000" />
       <workItem from="1601904984545" duration="959000" />
+      <workItem from="1601929023528" duration="3775000" />
     </task>
     <servers />
   </component>

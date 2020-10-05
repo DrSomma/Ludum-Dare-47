@@ -319,6 +319,10 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 6e5977bbe59c3ec4c99b45c0a2129916, type: 3}
   - name: station
     sprite: {fileID: 21300000, guid: d68b571d35cbab24a8029ae3741b46a1, type: 3}
+  - name: rail_curve
+    sprite: {fileID: 21300000, guid: 0fa3220042b3d84448afbdcfdd5ce5da, type: 3}
+  - name: rail_straight
+    sprite: {fileID: 21300000, guid: a95fd55e362e92d4188fddc5f17b5ef4, type: 3}
 --- !u!1 &2063851107
 GameObject:
   m_ObjectHideFlags: 0

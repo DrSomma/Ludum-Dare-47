@@ -1,6 +1,7 @@
 ﻿using amazeIT;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Enum;
 using UnityEngine;
 using WorldTile;
@@ -20,6 +21,7 @@ namespace Manager
             currentSelectedWorldTileSpecificationType = WorldTileSpecificationType.Station;
 
         private Dictionary<KeyValuePair<int, int>, WorldTileClass> _gridByTile;
+        private int _nextObjectId;
 
         private void Start()
         {
@@ -63,15 +65,7 @@ namespace Manager
                 {
                     GetInformation(x: x, y: y);
                 }
-
-
-                // DoActionOnWorldTile(x: x, y: y);
             }
-        }
-
-        public void SetBuildMode(bool status)
-        {
-            buildModeOn = status;
         }
 
         private void BuildSomething(int x, int y)
@@ -96,14 +90,48 @@ namespace Manager
 
                 worldTile = gameObject.GetComponent<WorldTileClass>();
 
-                worldTile.Instantiate(worldTileSpecification: currentSelectedWorldTileSpecificationType);
+                worldTile.Instantiate(id: _nextObjectId++,
+                                      pos: new Vector2(x: x, y: y),
+                                      worldTileSpecification: currentSelectedWorldTileSpecificationType,
+                                      neighbours: GetNeighbourTiles(x: x, y: y));
 
                 _gridByTile.Add(key: new KeyValuePair<int, int>(key: x, value: y), value: worldTile);
             }
             else if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Buildable))
             {
-                worldTile.Instantiate(worldTileSpecification: currentSelectedWorldTileSpecificationType);
+                worldTile.Instantiate(id: _nextObjectId++,
+                                      pos: new Vector2(x: x, y: y),
+                                      worldTileSpecification: currentSelectedWorldTileSpecificationType,
+                                      neighbours: GetNeighbourTiles(x: x, y: y));
             }
+        }
+
+        /// <summary>
+        /// Get the neighbour tiles of field x, y
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        private List<WorldTileClass> GetNeighbourTiles(int x, int y)
+        {
+            List<WorldTileClass> result = new List<WorldTileClass>();
+
+            // watch field above
+            GetFieldStatus(x: x, y: y + 1, worldTile: out WorldTileClass aboveWorldTile);
+            result.Add(item: aboveWorldTile);
+
+            // watch field to the right
+            GetFieldStatus(x: x + 1, y: y, worldTile: out WorldTileClass rightWorldTile);
+            result.Add(item: rightWorldTile);
+
+            // watch field below
+            GetFieldStatus(x: x, y: y - 1, worldTile: out WorldTileClass belowWorldTile);
+            result.Add(item: belowWorldTile);
+
+            // watch field to the left
+            GetFieldStatus(x: x - 1, y: y, worldTile: out WorldTileClass leftWorldTile);
+            result.Add(item: leftWorldTile);
+
+            return result.Where(predicate: r => r != null).ToList();
         }
 
         private void GetInformation(int x, int y)
@@ -130,27 +158,6 @@ namespace Manager
                 Debug.Log(message: "Field is buildable!");
             }
         }
-
-        private void DoActionOnWorldTile(int x, int y)
-        {
-            if (IsValidField(x: x, y: y))
-            {
-                if (!_gridByTile.TryGetValue(key: new KeyValuePair<int, int>(key: x, value: y),
-                                             value: out WorldTileClass worldTile))
-                {
-                    GameObject gameObject = Instantiate(original: worldTilePrefab,
-                                                        position: new Vector3(x: x, y: y),
-                                                        rotation: Quaternion.identity);
-
-                    worldTile = gameObject.GetComponent<WorldTileClass>();
-
-                    worldTile.Instantiate(worldTileSpecification: currentSelectedWorldTileSpecificationType);
-
-                    _gridByTile.Add(key: new KeyValuePair<int, int>(key: x, value: y), value: worldTile);
-                }
-            }
-        }
-
         private bool IsValidField(int x, int y)
         {
             return x >= 0 && y >= 0 && x < width && y < height;

@@ -9,6 +9,7 @@
             <e p="Utils.cs" t="Include" />
           </e>
           <e p="Enum" t="Include">
+            <e p="CompassDirection.cs" t="Include" />
             <e p="WorldTileSpecificationType.cs" t="Include" />
             <e p="WorldTileStatusType.cs" t="Include" />
           </e>

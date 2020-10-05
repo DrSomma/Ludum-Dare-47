@@ -90,7 +90,7 @@ namespace Manager
             }
         }
 
-        public void BuildSomething(int x, int y, WorldTileSpecificationType buildType)
+        public void BuildSomething(int x, int y, WorldTileSpecificationType buildType, int level)
         {
             WorldTileStatusType worldTileStatus = GetFieldStatus(x: x, y: y, worldTile: out WorldTileClass worldTile);
 
@@ -115,7 +115,8 @@ namespace Manager
                 worldTile.Instantiate(id: _nextObjectId++,
                                       pos: new Vector2(x: x, y: y),
                                       worldTileSpecification: buildType,
-                                      neighbours: GetNeighbourTiles(x: x, y: y));
+                                      neighbours: GetNeighbourTiles(x: x, y: y),
+                                      level);
 
                 _gridByTile.Add(key: new KeyValuePair<int, int>(key: x, value: y), value: worldTile);
             }
@@ -124,7 +125,8 @@ namespace Manager
                 worldTile.Instantiate(id: _nextObjectId++,
                                       pos: new Vector2(x: x, y: y),
                                       worldTileSpecification: buildType,
-                                      neighbours: GetNeighbourTiles(x: x, y: y));
+                                      neighbours: GetNeighbourTiles(x: x, y: y),
+                                      level);
             }
         }
 
@@ -144,7 +146,8 @@ namespace Manager
                 worldTile.Instantiate(id: _nextObjectId++,
                                       pos: new Vector2(x: x, y: y),
                                       worldTileSpecification: buildType,
-                                      neighbours: GetNeighbourTiles(x: x, y: y));
+                                      neighbours: GetNeighbourTiles(x: x, y: y),
+                                      0);
 
                 _gridByTile.Add(key: new KeyValuePair<int, int>(key: x, value: y), value: worldTile);
             }
@@ -153,7 +156,8 @@ namespace Manager
                 worldTile.Instantiate(id: _nextObjectId++,
                                       pos: new Vector2(x: x, y: y),
                                       worldTileSpecification: buildType,
-                                      neighbours: GetNeighbourTiles(x: x, y: y));
+                                      neighbours: GetNeighbourTiles(x: x, y: y),
+                                      0);
             }
         }
 

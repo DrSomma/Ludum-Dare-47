@@ -28,11 +28,13 @@
           <e p="UiMoney.cs" t="Include" />
           <e p="WorldTile" t="Include">
             <e p="WorldTileClass.cs" t="Include" />
+            <e p="WorldTileEnvironment.cs" t="Include" />
             <e p="WorldTileRail.cs" t="Include" />
             <e p="WorldTileSpecification.cs" t="Include" />
             <e p="WorldTileStation.cs" t="Include" />
           </e>
         </e>
+        <e p="SpawnMap.cs" t="Include" />
         <e p="TextMesh Pro" t="Include">
           <e p="Fonts" t="Include">
             <e p="LiberationSans - OFL.txt" t="Include" />

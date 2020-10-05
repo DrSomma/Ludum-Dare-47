@@ -9,6 +9,7 @@ using WorldTile;
 public class TrainMovment : MonoBehaviour
 {
     public float speed = 2f;
+    private float curSpeed;
 
     private GameManager gameManager;
     private WorldTileRail nextRail;
@@ -25,6 +26,7 @@ public class TrainMovment : MonoBehaviour
         //train_sprite = GetComponentInChildren<SpriteRenderer>().gameObject;
         train_sprite = this.gameObject;     
         gameManager = GameManager.Instance;
+        curSpeed = speed;
     }
 
 
@@ -33,7 +35,7 @@ public class TrainMovment : MonoBehaviour
         if (IsStopped)
             return;
 
-        transform.position = Vector2.MoveTowards(transform.position, targetPos, Time.deltaTime * speed);
+        transform.position = Vector2.MoveTowards(transform.position, targetPos, Time.deltaTime * curSpeed);
         if (!nextRail.IsCurve)
         {
             if (Vector2.Distance(new Vector2(transform.position.x, transform.position.y), targetPos) < 0.005f)
@@ -76,7 +78,7 @@ public class TrainMovment : MonoBehaviour
         train_sprite.transform.rotation = Quaternion.AngleAxis(360 - angle, Vector3.forward);
     }
 
-    private int CalcMoney()
+    private int CalcMoney(int level)
     {
         return (int) Mathf.Pow(tratraveledTiles,1.3f);
     }
@@ -96,11 +98,12 @@ public class TrainMovment : MonoBehaviour
 
 
         //check for station
-            List<WorldTileClass> neighbours = gameManager.GetNeighbourTiles(curRail.x, curRail.y);
+        List<WorldTileClass> neighbours = gameManager.GetNeighbourTiles(curRail.x, curRail.y);
         var station = neighbours.FirstOrDefault(x => x.worldTileSpecificationType == WorldTileSpecificationType.Station);
         if(station != null)
         {
-            gameManager.ChangeMoney(CalcMoney());
+            WorldTileStation temp = station.WorldTileSpecification as WorldTileStation;
+            gameManager.ChangeMoney(CalcMoney(temp.UpgradeLevel));
             SoundManager.Instance.PlaySoundCoins();
             tratraveledTiles = 0;
         }
@@ -117,6 +120,8 @@ public class TrainMovment : MonoBehaviour
         gameManager.GetFieldStatus(x: nextGridX, y: nextGridY, worldTile: out WorldTileClass nextWorldTile);
         nextRail = (WorldTileRail)nextWorldTile.WorldTileSpecification;
 
+        //Add speed
+        curSpeed = speed + 0.5f * nextRail.UpgradeLevel;
 
         if (!nextRail.IsCurve)
         {

@@ -11,7 +11,28 @@ public class StartTrackSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        BuildTestRound();
+        //BuildTestRound();
+        BuildTestRoundRevers();
+    }
+
+    private void BuildTestRoundRevers()
+    {
+        for (int i = 6; i > 0; i--)
+        {
+            BuildRail(i, 2);
+
+        }
+        BuildRail(1, 3);
+        BuildRail(1, 4);
+
+        for (int i = 1; i <= 6; i++)
+        {
+            BuildRail(i, 5);
+        }
+        BuildRail(6, 3);
+        BuildRail(6, 4);
+       
+        BuildStaton(3, 1);
     }
 
     private void BuildTestRound()

@@ -76,7 +76,7 @@ public class TrainMovment : MonoBehaviour
 
     private void GetNextTarget(int nextGridX, int nextGridY)
     {
-        Debug.Log($"Train Mov to {nextGridX}|{nextGridY}");
+        //Debug.Log($"Train Mov to {nextGridX}|{nextGridY}");
         gameManager.GetFieldStatus(x: nextGridX, y: nextGridY, worldTile: out WorldTileClass nextWorldTile);
         nextRail = (WorldTileRail)nextWorldTile.WorldTileSpecification;
 
@@ -106,40 +106,64 @@ public class TrainMovment : MonoBehaviour
     private void GetCurvePoints(out Vector2 firstPoint, out Vector2 secondPoint)
     {
         WorldTileRail nextNextRail = nextRail.GetNextRail();
+        bool? isAbove = nextRail.CheckIfPointIsAboveDir();
 
-        //Left->Up
-        if (curRail.y < nextNextRail.y && curRail.x < nextNextRail.x)
+        firstPoint = Vector2.zero;
+        secondPoint = Vector2.zero;
+        Debug.Log($"{nextRail.CompassDirection} | {isAbove.Value}");
+        switch (nextRail.CompassDirection)
         {
-            //train_sprite.transform.rotation = Quaternion.Euler(0, 0, -45);
-            firstPoint = new Vector2(0f, 0.5f);
-            secondPoint = new Vector2(0.5f, 1f);
-        }
-        //Up->Left
-        else if (curRail.y < nextNextRail.y && curRail.x > nextNextRail.x)
-        {
-            //train_sprite.transform.rotation = Quaternion.Euler(0, 0, 90);
-            firstPoint = new Vector2(0.5f, 0);
-            secondPoint = new Vector2(0f, 0.5f);
-        }
-        //Right->Down
-        else if (curRail.y > nextNextRail.y && curRail.x > nextNextRail.x)
-        {
-            //train_sprite.transform.rotation = Quaternion.Euler(0, 0, 45);
-            firstPoint = new Vector2(1f, 0.5f);
-            secondPoint = new Vector2(0.5f, 0f);
-        }
-        //Up->Right
-        else if (curRail.y > nextNextRail.y && curRail.x < nextNextRail.x)
-        {
-            //train_sprite.transform.rotation = Quaternion.Euler(0, 0, 45);
-            firstPoint = new Vector2(0.5f, 1f);
-            secondPoint = new Vector2(1f, 0.5f);
-        }
-        else
-        {
-            firstPoint = new Vector2(1f, 1f);
-            secondPoint = new Vector2(1f, 1f);
-        }
+            case CompassDirection.NE:
+                if (isAbove.HasValue && isAbove.Value)
+                {
+                    firstPoint = new Vector2(0.5f, 0f);
+                    secondPoint = new Vector2(1f, 0.5f);
+                }
+                else
+                {
+                    firstPoint = new Vector2(0f, 0.5f);
+                    secondPoint = new Vector2(0.5f, 1f);
+                }
+                break;
+            case CompassDirection.SW:
+                if (isAbove.HasValue && isAbove.Value)
+                {
+                    firstPoint = new Vector2(1f, 0.5f);
+                    secondPoint = new Vector2(0.5f, 0f);
+                }
+                else
+                {
+                    firstPoint = new Vector2(0.5f, 1f);
+                    secondPoint = new Vector2(0, 0.5f);
+                }
+                break;
+            case CompassDirection.SE:
+                if (isAbove.HasValue && isAbove.Value)
+                {
+                    firstPoint = new Vector2(0f, 0.5f);
+                    secondPoint = new Vector2(0.5f, 0);
+                }
+                else
+                {
+                    firstPoint = new Vector2(0.5f, 1f);
+                    secondPoint = new Vector2(1f, 0.5f);
+                }
+
+                break;
+            case CompassDirection.NW:
+                if (isAbove.HasValue && isAbove.Value)
+                {
+                    firstPoint = new Vector2(0.5f, 0);
+                    secondPoint = new Vector2(0f, 0.5f);
+                }
+                else
+                {
+                    firstPoint = new Vector2(1f, 0.5f);
+                    secondPoint = new Vector2(0.5f, 1f);
+                }
+
+                break;                
+        }   
     }
 
     public void StartTrain(WorldTileRail startRail)

@@ -190,7 +190,7 @@ namespace WorldTile
         /// </summary>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        private bool? CheckIfPointIsAboveDir()
+        public bool? CheckIfPointIsAboveDir()
         {
             if (_nextRail == null || _previousRail == null)
             {

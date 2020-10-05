@@ -180,7 +180,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a95fd55e362e92d4188fddc5f17b5ef4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d68b571d35cbab24a8029ae3741b46a1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -545,9 +545,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47217ab51c8a9e644a662e7e6ff8fd3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Price: 300
-  Type: 2
-  PriceTag: {fileID: 1114605537}
+  price: 300
+  type: 2
+  priceTag: {fileID: 1114605537}
 --- !u!114 &419801005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1159,9 +1159,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47217ab51c8a9e644a662e7e6ff8fd3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Price: 100
-  Type: 1
-  PriceTag: {fileID: 48404151}
+  price: 100
+  type: 1
+  priceTag: {fileID: 48404151}
 --- !u!1 &1346281125
 GameObject:
   m_ObjectHideFlags: 0
@@ -1584,9 +1584,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47217ab51c8a9e644a662e7e6ff8fd3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Price: 0
-  Type: 0
-  PriceTag: {fileID: 0}
+  price: 0
+  type: 0
+  priceTag: {fileID: 0}
 --- !u!1 &1605677024
 GameObject:
   m_ObjectHideFlags: 0

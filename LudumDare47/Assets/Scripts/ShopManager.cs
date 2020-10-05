@@ -80,7 +80,7 @@ public class ShopManager : MonoBehaviour
 
         WorldTileClass worldTile = cursor.GetComponent<WorldTileClass>();
 
-        worldTile.Instantiate(worldTileSpecification: type);
+        worldTile.InstantiateForShop(worldTileSpecification: type);
 
         GameManager.Instance.buildModeOn = true;
 

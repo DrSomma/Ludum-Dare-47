@@ -12,6 +12,7 @@
             <e p="Utils.cs" t="Include" />
           </e>
           <e p="Enum" t="Include">
+            <e p="CompassDirection.cs" t="Include" />
             <e p="WorldTileSpecificationType.cs" t="Include" />
             <e p="WorldTileStatusType.cs" t="Include" />
           </e>
@@ -20,6 +21,9 @@
             <e p="SoundManager.cs" t="Include" />
             <e p="SpriteManager.cs" t="Include" />
           </e>
+          <e p="ShopItem.cs" t="Include" />
+          <e p="ShopManager.cs" t="Include" />
+          <e p="UiMoney.cs" t="Include" />
           <e p="WorldTile" t="Include">
             <e p="WorldTileClass.cs" t="Include" />
             <e p="WorldTileRail.cs" t="Include" />
@@ -27,8 +31,6 @@
             <e p="WorldTileStation.cs" t="Include" />
           </e>
         </e>
-        <e p="ShopItem.cs" t="Include" />
-        <e p="ShopManager.cs" t="Include" />
         <e p="TextMesh Pro" t="Include">
           <e p="Fonts" t="Include">
             <e p="LiberationSans - OFL.txt" t="Include" />
@@ -60,7 +62,6 @@
             <e p="EmojiOne Attribution.txt" t="Include" />
           </e>
         </e>
-        <e p="UiMoney.cs" t="Include" />
       </e>
       <e p="LudumDare47.sln" t="IncludeFlat" />
       <e p="obj" t="ExcludeRecursive" />

@@ -1,6 +1,7 @@
 ﻿using amazeIT;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Enum;
 using UnityEngine;
 using WorldTile;
@@ -48,6 +49,7 @@ namespace Manager
 
 
         private Dictionary<KeyValuePair<int, int>, WorldTileClass> _gridByTile;
+        private int _nextObjectId;
 
 
 
@@ -109,14 +111,48 @@ namespace Manager
 
                 worldTile = gameObject.GetComponent<WorldTileClass>();
 
-                worldTile.Instantiate(worldTileSpecification: buildType);
+                worldTile.Instantiate(id: _nextObjectId++,
+                                      pos: new Vector2(x: x, y: y),
+                                      worldTileSpecification: buildType,
+                                      neighbours: GetNeighbourTiles(x: x, y: y));
 
                 _gridByTile.Add(key: new KeyValuePair<int, int>(key: x, value: y), value: worldTile);
             }
             else if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Buildable))
             {
-                worldTile.Instantiate(worldTileSpecification: buildType);
+                worldTile.Instantiate(id: _nextObjectId++,
+                                      pos: new Vector2(x: x, y: y),
+                                      worldTileSpecification: buildType,
+                                      neighbours: GetNeighbourTiles(x: x, y: y));
             }
+        }
+
+        /// <summary>
+        /// Get the neighbour tiles of field x, y
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        private List<WorldTileClass> GetNeighbourTiles(int x, int y)
+        {
+            List<WorldTileClass> result = new List<WorldTileClass>();
+
+            // watch field above
+            GetFieldStatus(x: x, y: y + 1, worldTile: out WorldTileClass aboveWorldTile);
+            result.Add(item: aboveWorldTile);
+
+            // watch field to the right
+            GetFieldStatus(x: x + 1, y: y, worldTile: out WorldTileClass rightWorldTile);
+            result.Add(item: rightWorldTile);
+
+            // watch field below
+            GetFieldStatus(x: x, y: y - 1, worldTile: out WorldTileClass belowWorldTile);
+            result.Add(item: belowWorldTile);
+
+            // watch field to the left
+            GetFieldStatus(x: x - 1, y: y, worldTile: out WorldTileClass leftWorldTile);
+            result.Add(item: leftWorldTile);
+
+            return result.Where(predicate: r => r != null).ToList();
         }
 
         public void DeleteTile(int x, int y)

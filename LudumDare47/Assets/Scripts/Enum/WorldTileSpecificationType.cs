@@ -4,6 +4,7 @@
     {
         None,
         Rail,
-        Station
+        Station,
+        Environment
     }
 }

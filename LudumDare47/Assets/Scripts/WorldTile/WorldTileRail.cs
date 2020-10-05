@@ -310,5 +310,27 @@ namespace WorldTile
             _nextRail = oldPreviousRail;
             CheckForCorrectSprite();
         }
+
+        public override void OnDelete()
+        {
+            WorldTileRail recursive = _nextRail;
+            while (recursive != null && recursive.ObjectId != ObjectId)
+            {
+                recursive._trackFinished = false;
+                recursive._trackRailCount = 0;
+                recursive = recursive._nextRail;
+            }
+
+            if (_previousRail != null)
+            {
+                _previousRail._nextRail = null;
+            }
+            if (_nextRail != null)
+            {
+                _nextRail._previousRail = null;
+            }
+
+            _trackFinished = false;
+        }
     }
 }

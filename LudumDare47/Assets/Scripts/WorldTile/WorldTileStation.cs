@@ -17,5 +17,9 @@ namespace WorldTile
             }
         }
 
+        public override void OnDelete()
+        {
+            //Nix
+        }
     }
 }

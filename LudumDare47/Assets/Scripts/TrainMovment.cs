@@ -80,11 +80,23 @@ public class TrainMovment : MonoBehaviour
     {
         return (int) Mathf.Pow(tratraveledTiles,1.3f);
     }
+
+    public void CheckIfTrackStillLoop()
+    {
+        if (!curRail._trackFinished)
+        {
+            Debug.Log("Delete Train: " + curRail._trackFinished);
+            Destroy(this.gameObject);
+        }
+    }
     
     private void GetNextTarget(int nextGridX, int nextGridY)
     {
+        //if(curRail == null || nextRail == null || !curRail._trackFinished)
+
+
         //check for station
-        List<WorldTileClass> neighbours = gameManager.GetNeighbourTiles(curRail.x, curRail.y);
+            List<WorldTileClass> neighbours = gameManager.GetNeighbourTiles(curRail.x, curRail.y);
         var station = neighbours.FirstOrDefault(x => x.worldTileSpecificationType == WorldTileSpecificationType.Station);
         if(station != null)
         {

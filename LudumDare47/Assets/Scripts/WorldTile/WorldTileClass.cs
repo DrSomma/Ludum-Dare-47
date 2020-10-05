@@ -91,5 +91,18 @@ namespace WorldTile
         {
             sprite.sprite = WorldTileSpecification?.Sprite;
         }
+
+        public void OnDelete()
+        {
+            WorldTileSpecification.OnDelete();
+            if (worldTileSpecificationType == WorldTileSpecificationType.Rail)
+            {
+                foreach (TrainMovment train in FindObjectsOfType<TrainMovment>())
+                {
+                    train.CheckIfTrackStillLoop();
+                };
+            }
+            
+        }
     }
 }

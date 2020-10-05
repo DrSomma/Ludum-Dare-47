@@ -11,5 +11,7 @@ namespace WorldTile
 
         public int x;
         public int y;
+
+        public abstract void OnDelete();
     }
 }

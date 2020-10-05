@@ -188,10 +188,11 @@ namespace Manager
 
         public void DeleteTile(int x, int y)
         {
-            Debug.Log(_gridByTile.ContainsKey(key: new KeyValuePair<int, int>(key: x, value: y)));
             if (_gridByTile.TryGetValue(key: new KeyValuePair<int, int>(key: x, value: y),
                                         value: out WorldTileClass worldTile))
             {
+                worldTile.OnDelete();
+
                 Destroy(worldTile.gameObject);
                 _gridByTile.Remove(key: new KeyValuePair<int, int>(key: x, value: y));
             }

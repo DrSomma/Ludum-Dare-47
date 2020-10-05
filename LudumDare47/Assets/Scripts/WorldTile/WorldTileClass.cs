@@ -13,7 +13,7 @@ namespace WorldTile
         public Vector2 position;
         public int objectId;
 
-        [ReadOnly] public WorldTileSpecificationType worldTileSpecificationType;
+        /*[ReadOnly]*/ public WorldTileSpecificationType worldTileSpecificationType;
 
         public WorldTileSpecification WorldTileSpecification;
 

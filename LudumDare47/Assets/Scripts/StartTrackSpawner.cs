@@ -12,7 +12,7 @@ public class StartTrackSpawner : MonoBehaviour
     void Start()
     {
         //BuildTestRound();
-        BuildTestRoundRevers();
+        // BuildTestRoundRevers();
     }
 
     private void BuildTestRoundRevers()

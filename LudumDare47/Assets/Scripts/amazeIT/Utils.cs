@@ -82,6 +82,10 @@ namespace amazeIT
 
     #region ReadOnly
     /// <summary>
+    /// Just for Debuggin. Has to be deactivated for building
+    ///
+    ///
+    ///
     /// This is just for the editor view
     /// Write [ReadOnly] before the variable if it shouldn't be enabled for editing in the editor
     ///
@@ -89,32 +93,32 @@ namespace amazeIT
     /// [ReadOnly] public string str;
     /// </summary>
 
-    public class ReadOnlyAttribute : PropertyAttribute
-    {
-    }
-
-    [CustomPropertyDrawer(type: typeof(ReadOnlyAttribute))]
-    public class ReadOnlyDrawer : PropertyDrawer
-    {
-        public override float GetPropertyHeight(
-            SerializedProperty property,
-            GUIContent label)
-        {
-            return EditorGUI.GetPropertyHeight(property: property, label: label, includeChildren: true);
-        }
-
-        public override void OnGUI(
-            Rect position,
-            SerializedProperty property,
-            GUIContent label)
-        {
-            GUI.enabled = false;
-            EditorGUI.PropertyField(position: position,
-                                    property: property,
-                                    label: label,
-                                    includeChildren: true);
-            GUI.enabled = true;
-        }
-    }
+    // public class ReadOnlyAttribute : PropertyAttribute
+    // {
+    // }
+    //
+    // [CustomPropertyDrawer(type: typeof(ReadOnlyAttribute))]
+    // public class ReadOnlyDrawer : PropertyDrawer
+    // {
+    //     public override float GetPropertyHeight(
+    //         SerializedProperty property,
+    //         GUIContent label)
+    //     {
+    //         return EditorGUI.GetPropertyHeight(property: property, label: label, includeChildren: true);
+    //     }
+    //
+    //     public override void OnGUI(
+    //         Rect position,
+    //         SerializedProperty property,
+    //         GUIContent label)
+    //     {
+    //         GUI.enabled = false;
+    //         EditorGUI.PropertyField(position: position,
+    //                                 property: property,
+    //                                 label: label,
+    //                                 includeChildren: true);
+    //         GUI.enabled = true;
+    //     }
+    // }
     #endregion ReadOnly
 }

@@ -24,7 +24,7 @@ public class TrainMovment : MonoBehaviour
     private void Awake()
     {
         //train_sprite = GetComponentInChildren<SpriteRenderer>().gameObject;
-        train_sprite = this.gameObject;     
+        train_sprite = this.gameObject;
         gameManager = GameManager.Instance;
         curSpeed = speed;
     }
@@ -56,19 +56,19 @@ public class TrainMovment : MonoBehaviour
                     rotateDone = true;
                     GetCurvePoints(out Vector2 curvP1, out Vector2 curvP2);
                     targetPos = new Vector2(nextRail.x, nextRail.y) + curvP2;
-                    RotateToTarget(); 
+                    RotateToTarget();
                 }
                 else
                 {
                     curRail = nextRail;
                     GetNextTarget(nextRail.GetNextRail().x, nextRail.GetNextRail().y);
-                    RotateToTarget(); 
+                    RotateToTarget();
                 }
 
             }
-            
+
         }
-        
+
     }
 
     private void RotateToTarget()
@@ -80,7 +80,7 @@ public class TrainMovment : MonoBehaviour
 
     private int CalcMoney(int level)
     {
-        return (int) Mathf.Pow(tratraveledTiles,1.3f);
+        return (int) Mathf.Pow(tratraveledTiles,1.3f)*2*(level+1);
     }
 
     public void CheckIfTrackStillLoop()
@@ -91,7 +91,7 @@ public class TrainMovment : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    
+
     private void GetNextTarget(int nextGridX, int nextGridY)
     {
         //if(curRail == null || nextRail == null || !curRail._trackFinished)
@@ -204,8 +204,8 @@ public class TrainMovment : MonoBehaviour
                     secondPoint = new Vector2(0.5f, 1f);
                 }
 
-                break;                
-        }   
+                break;
+        }
     }
 
     public void StartTrain(WorldTileRail startRail)
@@ -221,6 +221,6 @@ public class TrainMovment : MonoBehaviour
         tratraveledTiles = 0;
 
 
-        IsStopped = false;  
+        IsStopped = false;
     }
 }

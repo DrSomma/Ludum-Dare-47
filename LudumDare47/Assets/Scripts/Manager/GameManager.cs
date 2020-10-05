@@ -9,22 +9,52 @@ namespace Manager
 {
     public class GameManager : MonoBehaviour
     {
+        #region SINGLETON PATTERN
+        private static GameManager _instance;
+
+        public static GameManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = FindObjectOfType<GameManager>();
+
+                    if (_instance == null)
+                    {
+                        GameObject container = new GameObject(name: "GameManager");
+                        _instance = container.AddComponent<GameManager>();
+                    }
+                }
+
+                return _instance;
+            }
+        }
+        #endregion
+
         public GameObject worldTilePrefab;
         public int width = 18;
         public int height = 10;
         public bool drawDebugLine = true;
 
-        [Header(header: "Building Settings")] public bool buildModeOn;
+        [Header(header: "Building Settings")]
+        public bool buildModeOn;
+        public int startMoney = 1000;
+        public int Money { get; private set; }
 
-        public WorldTileSpecificationType
-            currentSelectedWorldTileSpecificationType = WorldTileSpecificationType.Station;
+
+        public delegate void MoneyChanged(int money, int sumToAdd);
+        public event MoneyChanged OnMoneyChanged;
+
 
         private Dictionary<KeyValuePair<int, int>, WorldTileClass> _gridByTile;
+
+
 
         private void Start()
         {
             _gridByTile = new Dictionary<KeyValuePair<int, int>, WorldTileClass>();
-
+            changeMoney(startMoney);
 
             // Grid to make visible the border of playing field
             if (drawDebugLine)
@@ -48,33 +78,21 @@ namespace Manager
             }
         }
 
-        private void Update()
+        public void changeMoney(int sumToAdd)
         {
-            if (Input.GetMouseButtonDown(button: 0))
+            if(sumToAdd > 0 || Money >= sumToAdd)
             {
-                Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position: Input.mousePosition);
-                Utils.GetXY(worldPosition: worldPosition, x: out int x, y: out int y);
-
-                if (buildModeOn)
-                {
-                    BuildSomething(x: x, y: y);
-                }
-                else
-                {
-                    GetInformation(x: x, y: y);
-                }
-
-
-                // DoActionOnWorldTile(x: x, y: y);
+                Money += sumToAdd;
+                OnMoneyChanged(Money, sumToAdd);
             }
         }
 
-        public void SetBuildMode(bool status)
+        private void Update()
         {
-            buildModeOn = status;
+
         }
 
-        private void BuildSomething(int x, int y)
+        public void BuildSomething(int x, int y, WorldTileSpecificationType buildType)
         {
             WorldTileStatusType worldTileStatus = GetFieldStatus(x: x, y: y, worldTile: out WorldTileClass worldTile);
 
@@ -96,38 +114,24 @@ namespace Manager
 
                 worldTile = gameObject.GetComponent<WorldTileClass>();
 
-                worldTile.Instantiate(worldTileSpecification: currentSelectedWorldTileSpecificationType);
+                worldTile.Instantiate(worldTileSpecification: buildType);
 
                 _gridByTile.Add(key: new KeyValuePair<int, int>(key: x, value: y), value: worldTile);
             }
             else if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Buildable))
             {
-                worldTile.Instantiate(worldTileSpecification: currentSelectedWorldTileSpecificationType);
+                worldTile.Instantiate(worldTileSpecification: buildType);
             }
         }
 
-        private void GetInformation(int x, int y)
+        public void DeletTile(int x, int y)
         {
-            WorldTileStatusType worldTileStatus = GetFieldStatus(x: x, y: y, worldTile: out WorldTileClass worldTile);
-
-            if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Invalid))
+            Debug.Log(_gridByTile.ContainsKey(key: new KeyValuePair<int, int>(key: x, value: y)));
+            if (_gridByTile.TryGetValue(key: new KeyValuePair<int, int>(key: x, value: y),
+                                             value: out WorldTileClass worldTile))
             {
-                Debug.Log(message: "Invalid field!");
-            }
-
-            if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Blocked))
-            {
-                Debug.Log(message: $"Blocked field: {worldTile.worldTileSpecificationType.ToString()}");
-            }
-
-            if (worldTileStatus.HasFlag(flag: WorldTileStatusType.NotInitialized))
-            {
-                Debug.Log(message: "Field not initialized!");
-            }
-
-            if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Buildable))
-            {
-                Debug.Log(message: "Field is buildable!");
+                Destroy(worldTile.gameObject);
+                _gridByTile.Remove(key: new KeyValuePair<int, int>(key: x, value: y));
             }
         }
 
@@ -135,19 +139,7 @@ namespace Manager
         {
             if (IsValidField(x: x, y: y))
             {
-                if (!_gridByTile.TryGetValue(key: new KeyValuePair<int, int>(key: x, value: y),
-                                             value: out WorldTileClass worldTile))
-                {
-                    GameObject gameObject = Instantiate(original: worldTilePrefab,
-                                                        position: new Vector3(x: x, y: y),
-                                                        rotation: Quaternion.identity);
-
-                    worldTile = gameObject.GetComponent<WorldTileClass>();
-
-                    worldTile.Instantiate(worldTileSpecification: currentSelectedWorldTileSpecificationType);
-
-                    _gridByTile.Add(key: new KeyValuePair<int, int>(key: x, value: y), value: worldTile);
-                }
+                //TODO?
             }
         }
 

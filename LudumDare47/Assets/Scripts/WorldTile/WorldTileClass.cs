@@ -61,6 +61,7 @@ namespace WorldTile
                     return;
                 case WorldTileSpecificationType.Rail:
                     WorldTileSpecification = new WorldTileRail(parent: this, neighbours: neighbours);
+
                     break;
                 case WorldTileSpecificationType.Station:
                     WorldTileSpecification = new WorldTileStation();

@@ -15,7 +15,7 @@ namespace WorldTile
 
         private int ObjectId => _parent.objectId;
         private Vector2 Position => _parent.position;
-        private bool _trackFinished = false;
+        public bool _trackFinished = false;
         private int _trackRailCount = 0;
         private WorldTileRail _previousRail;
         private WorldTileRail _nextRail;
@@ -280,6 +280,10 @@ namespace WorldTile
                     recursive = recursive._nextRail;
 
                 }
+
+                x = (int)_parent.position.x;
+                y = (int)_parent.position.y;
+                GameManager.Instance.SpawnTrain(this);
 
                 return true;
             }

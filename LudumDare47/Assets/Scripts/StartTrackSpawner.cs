@@ -6,20 +6,12 @@ using UnityEngine;
 
 public class StartTrackSpawner : MonoBehaviour
 {
-    public GameObject TrainPrefab;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         BuildTestRound();
-        SpawnTrain();
-    }
-
-    private void SpawnTrain()
-    {
-        //First Tile
-        var copy = Instantiate(TrainPrefab);
-        copy.GetComponent<TrainMovment>().StartTrain(3, 2);
     }
 
     private void BuildTestRound()

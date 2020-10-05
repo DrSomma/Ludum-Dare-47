@@ -42,6 +42,7 @@ namespace Manager
         public bool buildModeOn;
         public int startMoney = 1000;
         public int Money { get; private set; }
+        public GameObject TrainPrefab;
 
 
         public delegate void MoneyChanged(int money, int sumToAdd);
@@ -127,6 +128,7 @@ namespace Manager
             }
         }
 
+
         /// <summary>
         /// Get the neighbour tiles of field x, y
         /// </summary>
@@ -194,6 +196,12 @@ namespace Manager
             {
                 return WorldTileStatusType.NotInitialized | WorldTileStatusType.Buildable;
             }
+        }
+
+        public void SpawnTrain(WorldTileRail startRail)
+        {
+            GameObject copy = Instantiate(TrainPrefab);
+            copy.GetComponent<TrainMovment>().StartTrain(startRail);
         }
     }
 }

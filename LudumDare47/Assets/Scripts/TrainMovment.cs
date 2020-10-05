@@ -142,13 +142,11 @@ public class TrainMovment : MonoBehaviour
         }
     }
 
-    public void StartTrain(int x, int y)
+    public void StartTrain(WorldTileRail startRail)
     {
-        Debug.Log($"Start Train @ {x}|{y}");
-        transform.position = new Vector2(x+0.5f, y + 0.5f);
-        WorldTileStatusType status = gameManager.GetFieldStatus(x: x, y: y, worldTile: out WorldTileClass curWorldTile);
-        Debug.Log(status);
-        curRail = (WorldTileRail)curWorldTile.WorldTileSpecification;
+        Debug.Log($"Start Train @ {startRail.x}|{startRail.y}");
+        transform.position = new Vector2(startRail.x + 0.5f, startRail.y + 0.5f);
+        curRail = startRail;
 
         //Get  next
         GetNextTarget(curRail.GetNextRail().x, curRail.GetNextRail().y);

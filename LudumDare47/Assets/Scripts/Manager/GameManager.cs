@@ -53,7 +53,7 @@ namespace Manager
 
 
 
-        private void Start()
+        private void Awake()
         {
             _gridByTile = new Dictionary<KeyValuePair<int, int>, WorldTileClass>();
             ChangeMoney(startMoney);
@@ -78,75 +78,6 @@ namespace Manager
                                color: Color.white,
                                duration: 100f);
             }
-
-            BuildTestRound();
-            SpawnTrain();
-        }
-
-        public TrainMovment train;
-        private void SpawnTrain()
-        {
-            //First Tile
-            train.StartTrain(3,2);
-        }
-
-        private void BuildTestRound()
-        {
-            currentSelectedWorldTileSpecificationType = WorldTileSpecificationType.Rail;
-            for (int i = 1; i <= 6; i++)
-            {
-                testBuild(i, 2);
-                
-            }
-            testBuild(6, 3);
-            testBuild(6, 4);
-            for (int i = 6; i > 0; i--)
-            {
-                testBuild(i, 5);
-            }
-            testBuild(1, 4);
-            testBuild(1, 3);
-            GetFieldStatus(1, 3, worldTile: out WorldTileClass lastTile);
-            WorldTileRail lastRail = (WorldTileRail)lastTile.WorldTileSpecification;
-            lastRail.NextRail = first;
-
-            WorldTileClass curveTile;
-            WorldTileRail curveRail;
-            GetFieldStatus(1, 2, worldTile: out curveTile);
-            curveRail = (WorldTileRail)curveTile.WorldTileSpecification;
-            curveRail.isCurve = true;
-
-            GetFieldStatus(6, 2, worldTile: out curveTile);
-            curveRail = (WorldTileRail)curveTile.WorldTileSpecification;
-            curveRail.isCurve = true;
-
-            GetFieldStatus(6, 5, worldTile: out curveTile);
-            curveRail = (WorldTileRail)curveTile.WorldTileSpecification;
-            curveRail.isCurve = true;
-
-            GetFieldStatus(1, 5, worldTile: out curveTile);
-            curveRail = (WorldTileRail)curveTile.WorldTileSpecification;
-            curveRail.isCurve = true;
-
-        }
-        private WorldTileRail last;
-        private WorldTileRail first;
-        private void testBuild(int x, int y)
-        {
-            BuildSomething(x, y);
-            GetFieldStatus(x: x, y: y, worldTile: out WorldTileClass curWorldTile);
-            WorldTileRail curRail = (WorldTileRail)curWorldTile.WorldTileSpecification;
-            if (last != null)
-            {
-                last.NextRail = curRail;
-                curRail.PreviousRail = last;
-            }
-            else
-            {
-                first = (WorldTileRail)curWorldTile.WorldTileSpecification;
-            }
-            last = curRail;
-
         }
 
         public void ChangeMoney(int sumToAdd)

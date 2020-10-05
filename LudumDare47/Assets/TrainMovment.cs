@@ -9,8 +9,7 @@ public class TrainMovment : MonoBehaviour
 {
     public float speed = 2f;
 
-    //TODO SOLLTE SINGELTEN VERWENDEN!!!!!!!!!!!!
-    public GameManager gameManager;
+    private GameManager gameManager;
     private WorldTileRail nextRail;
     private WorldTileRail curRail;
     private Vector2 targetPos;
@@ -25,19 +24,19 @@ public class TrainMovment : MonoBehaviour
 
     void Start()
     {
-        //gameManager = GameManager.Instance;
+        gameManager = GameManager.Instance;
     }
 
     void Update()
     {
         transform.position = Vector2.MoveTowards(transform.position, targetPos, Time.deltaTime * speed);
-        if (!nextRail.isCurve)
+        if (!nextRail.IsCurve)
         {
             if (Vector2.Distance(new Vector2(transform.position.x, transform.position.y), targetPos) < 0.005f)
             {
                 transform.position = targetPos;
                 curRail = nextRail;
-                GetNextTarget(nextRail.NextRail.x, nextRail.NextRail.y);
+                GetNextTarget(nextRail.GetNextRail().x, nextRail.GetNextRail().y);
                 RotateToTarget();
 
             }
@@ -56,7 +55,7 @@ public class TrainMovment : MonoBehaviour
                 else
                 {
                     curRail = nextRail;
-                    GetNextTarget(nextRail.NextRail.x, nextRail.NextRail.y);
+                    GetNextTarget(nextRail.GetNextRail().x, nextRail.GetNextRail().y);
                     RotateToTarget(); 
                 }
 
@@ -80,7 +79,7 @@ public class TrainMovment : MonoBehaviour
         nextRail = (WorldTileRail)nextWorldTile.WorldTileSpecification;
 
 
-        if (!nextRail.isCurve)
+        if (!nextRail.IsCurve)
         {
             targetPos = new Vector2(nextGridX + 0.5f, nextGridY + 0.5f);
         }
@@ -104,7 +103,7 @@ public class TrainMovment : MonoBehaviour
 
     private void GetCurvePoints(out Vector2 firstPoint, out Vector2 secondPoint)
     {
-        WorldTileRail nextNextRail = nextRail.NextRail;
+        WorldTileRail nextNextRail = nextRail.GetNextRail();
 
         //Left->Up
         if (curRail.y < nextNextRail.y && curRail.x < nextNextRail.x)
@@ -150,7 +149,7 @@ public class TrainMovment : MonoBehaviour
         curRail = (WorldTileRail)curWorldTile.WorldTileSpecification;
 
         //Get  next
-        GetNextTarget(curRail.NextRail.x, curRail.NextRail.y);
+        GetNextTarget(curRail.GetNextRail().x, curRail.GetNextRail().y);
         RotateToTarget(); 
     }
 }

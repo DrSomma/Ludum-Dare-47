@@ -86,6 +86,11 @@ namespace WorldTile
             }
         }
 
+        public WorldTileRail GetNextRail()
+        {
+            return _nextRail;
+        }
+
         private void CheckForFixRail(List<WorldTileRail> railList)
         {
             if (_previousRail != null && _nextRail != null ||

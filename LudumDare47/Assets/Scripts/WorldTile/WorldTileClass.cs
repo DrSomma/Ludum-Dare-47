@@ -72,6 +72,8 @@ namespace WorldTile
             }
 
             sprite.sprite = WorldTileSpecification.Sprite;
+            WorldTileSpecification.x = (int)this.position.x;
+            WorldTileSpecification.y = (int)this.position.y;
         }
 
         public void UpdateSprite()

@@ -86,6 +86,11 @@ namespace WorldTile
             }
         }
 
+        public WorldTileRail GetNextRail()
+        {
+            return _nextRail;
+        }
+
         private void CheckForFixRail(List<WorldTileRail> railList)
         {
             if (_previousRail != null && _nextRail != null ||
@@ -146,6 +151,7 @@ namespace WorldTile
                     break;
                 case CompassDirection.NE:
                 case CompassDirection.SW:
+                    IsCurve = true;
                     Sprite = _railCurve;
                     if (isAbove.HasValue && isAbove.Value)
                     {
@@ -159,6 +165,7 @@ namespace WorldTile
                     break;
                 case CompassDirection.SE:
                 case CompassDirection.NW:
+                    IsCurve = true;
                     Sprite = _railCurve;
                     if (isAbove.HasValue && isAbove.Value)
                     {

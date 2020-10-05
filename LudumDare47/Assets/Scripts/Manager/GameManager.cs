@@ -53,7 +53,7 @@ namespace Manager
 
 
 
-        private void Start()
+        private void Awake()
         {
             _gridByTile = new Dictionary<KeyValuePair<int, int>, WorldTileClass>();
             ChangeMoney(startMoney);

@@ -43,6 +43,13 @@ namespace WorldTile
                         sprite.sprite = outSprite;
                     }
                     break;
+                case WorldTileSpecificationType.Environment:
+                    string spriteName = UnityEngine.Random.Range(0,1) == 1 ? "tree" : "rock";
+                    if (SpriteManager.Instance.TryGetSpriteByName(spriteName: spriteName, outSprite: out outSprite))
+                    {
+                        sprite.sprite = outSprite;
+                    }
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(worldTileSpecification), worldTileSpecification, null);
             }
@@ -65,6 +72,9 @@ namespace WorldTile
                     break;
                 case WorldTileSpecificationType.Station:
                     WorldTileSpecification = new WorldTileStation();
+                    break;
+                case WorldTileSpecificationType.Environment:
+                    WorldTileSpecification = new WorldTileEnvironment();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(paramName: nameof(worldTileSpecification),

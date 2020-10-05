@@ -217,6 +217,7 @@ namespace Manager
                     case WorldTileSpecificationType.None: return WorldTileStatusType.Buildable;
                     case WorldTileSpecificationType.Rail: return WorldTileStatusType.Blocked;
                     case WorldTileSpecificationType.Station: return WorldTileStatusType.Upgradeable;
+                    case WorldTileSpecificationType.Environment: return WorldTileStatusType.Buildable;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

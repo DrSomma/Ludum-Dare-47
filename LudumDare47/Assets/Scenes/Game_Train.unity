@@ -375,13 +375,13 @@ MonoBehaviour:
   - name: rail_curve
     sprite: {fileID: -2455287069041890485, guid: 90c7818a25e714d408ca3f63bedafa8a, type: 3}
   - name: gras_0
-    sprite: {fileID: -2455287069041890485, guid: 90c7818a25e714d408ca3f63bedafa8a, type: 3}
-  - name: gras_1
     sprite: {fileID: 4035501790466999928, guid: 90c7818a25e714d408ca3f63bedafa8a, type: 3}
-  - name: gras_2
+  - name: gras_1
     sprite: {fileID: -8717017754119436831, guid: 90c7818a25e714d408ca3f63bedafa8a, type: 3}
-  - name: gras_3
+  - name: gras_2
     sprite: {fileID: 8266258911003420344, guid: 90c7818a25e714d408ca3f63bedafa8a, type: 3}
+  - name: gras_3
+    sprite: {fileID: 4755373664117421245, guid: 90c7818a25e714d408ca3f63bedafa8a, type: 3}
   - name: gras_4
     sprite: {fileID: 4755373664117421245, guid: 90c7818a25e714d408ca3f63bedafa8a, type: 3}
   - name: gras_5
@@ -2007,13 +2007,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 5086062562542190380, guid: c2719e0e8684bcb478f642592fb2e87e, type: 3}
-  tiles:
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
 --- !u!1 &2132895148
 GameObject:
   m_ObjectHideFlags: 0

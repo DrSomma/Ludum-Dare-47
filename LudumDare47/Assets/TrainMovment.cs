@@ -14,6 +14,7 @@ public class TrainMovment : MonoBehaviour
     private WorldTileRail nextRail;
     private WorldTileRail curRail;
     private Vector2 targetPos;
+    private Vector2 targetPosCheck;
     private GameObject train_sprite;
 
     private void Awake()
@@ -29,8 +30,9 @@ public class TrainMovment : MonoBehaviour
     void Update()
     {
         transform.position = Vector2.MoveTowards(transform.position, targetPos, Time.deltaTime * speed);
-        if(Vector2.Distance(transform.position,targetPos) < 0.1f)
+        if(Vector2.Distance(new Vector2(transform.position.x+0.5f, transform.position.y+0.5f), targetPosCheck) < 0.005f)
         {
+            transform.position = targetPos;
             curRail = nextRail;
             GetNextTarget(nextRail.NextRail.x, nextRail.NextRail.y);
         }
@@ -45,6 +47,15 @@ public class TrainMovment : MonoBehaviour
         RotateTrain(nextGridX, nextGridY);
 
         targetPos = new Vector2(nextGridX, nextGridY);
+        targetPosCheck = new Vector2(nextGridX+0.5f, nextGridY + 0.5f);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(targetPosCheck, 0.1f);
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(new Vector2(transform.position.x + 0.5f, transform.position.y + 0.5f), 0.1f);
     }
 
     private void RotateTrain(int nextGridX, int nextGridY)

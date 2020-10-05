@@ -43,5 +43,14 @@ namespace WorldTile
             sprite.sprite = WorldTileSpecification.Sprite;
             worldTileSpecificationType = WorldTileSpecification.Type;
         }
+
+        private void OnDrawGizmos()
+        {
+            Vector3 center = new Vector3(transform.position.x, transform.position.y, 0);
+            Gizmos.DrawSphere(center, 0.1f);
+            Gizmos.color = Color.red;
+            Vector3 center2 = new Vector3(transform.position.x+0.5f, transform.position.y + 0.5f, 0);
+            Gizmos.DrawSphere(center2, 0.1f);
+        }
     }
 }

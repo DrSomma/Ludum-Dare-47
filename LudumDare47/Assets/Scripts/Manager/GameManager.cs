@@ -77,6 +77,25 @@ namespace Manager
             GetFieldStatus(1, 3, worldTile: out WorldTileClass lastTile);
             WorldTileRail lastRail = (WorldTileRail)lastTile.WorldTileSpecification;
             lastRail.NextRail = first;
+
+            WorldTileClass curveTile;
+            WorldTileRail curveRail;
+            GetFieldStatus(1, 2, worldTile: out curveTile);
+            curveRail = (WorldTileRail)curveTile.WorldTileSpecification;
+            curveRail.isCurve = true;
+
+            GetFieldStatus(6, 2, worldTile: out curveTile);
+            curveRail = (WorldTileRail)curveTile.WorldTileSpecification;
+            curveRail.isCurve = true;
+
+            GetFieldStatus(6, 5, worldTile: out curveTile);
+            curveRail = (WorldTileRail)curveTile.WorldTileSpecification;
+            curveRail.isCurve = true;
+
+            GetFieldStatus(1, 5, worldTile: out curveTile);
+            curveRail = (WorldTileRail)curveTile.WorldTileSpecification;
+            curveRail.isCurve = true;
+
         }
         private WorldTileRail last;
         private WorldTileRail first;

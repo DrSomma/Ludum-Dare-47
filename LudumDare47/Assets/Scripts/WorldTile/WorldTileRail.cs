@@ -9,6 +9,7 @@ namespace WorldTile
     {
         public WorldTileRail PreviousRail; 
         public WorldTileRail NextRail;
+        public bool isCurve;
 
         public WorldTileRail(int x, int y)
         {

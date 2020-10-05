@@ -19,7 +19,8 @@ public class TrainMovment : MonoBehaviour
 
     private void Awake()
     {
-        train_sprite = GetComponentInChildren<SpriteRenderer>().gameObject;
+        //train_sprite = GetComponentInChildren<SpriteRenderer>().gameObject;
+        train_sprite = this.gameObject;     
     }
 
     void Start()
@@ -37,6 +38,8 @@ public class TrainMovment : MonoBehaviour
                 transform.position = targetPos;
                 curRail = nextRail;
                 GetNextTarget(nextRail.NextRail.x, nextRail.NextRail.y);
+                RotateToTarget();
+
             }
         }
         else
@@ -46,27 +49,29 @@ public class TrainMovment : MonoBehaviour
                 if (!rotateDone)
                 {
                     rotateDone = true;
-                    train_sprite.transform.rotation = Quaternion.Euler(0, 0, -45);
-                    RotateTrain(out Vector2 curvP1, out Vector2 curvP2);
+                    GetCurvePoints(out Vector2 curvP1, out Vector2 curvP2);
                     targetPos = new Vector2(nextRail.x, nextRail.y) + curvP2;
+                    RotateToTarget(); 
                 }
                 else
                 {
-                    //transform.position = targetPos;
-                    train_sprite.transform.rotation = Quaternion.Euler(0, 0, 0);
                     curRail = nextRail;
                     GetNextTarget(nextRail.NextRail.x, nextRail.NextRail.y);
+                    RotateToTarget(); 
                 }
 
             }
             
         }
-        //        var dir = new Vector3(targetPosCheck.x, targetPosCheck.y, 0) - train_sprite.transform.position;
-        //        var angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-        //Debug.Log(angle);
-        //        train_sprite.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        
     }
 
+    private void RotateToTarget()
+    {
+        var dir = new Vector3(targetPos.x, targetPos.y, 0) - train_sprite.transform.position;
+        var angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
+        train_sprite.transform.rotation = Quaternion.AngleAxis(360 - angle, Vector3.forward);
+    }
 
     private void GetNextTarget(int nextGridX, int nextGridY)
     {
@@ -82,8 +87,8 @@ public class TrainMovment : MonoBehaviour
         else
         {
             rotateDone = false;
-            RotateTrain(out Vector2 curvP1, out _);
-            targetPos = new Vector2(nextGridX + 0.5f, nextGridY + 0.5f); ;
+            GetCurvePoints(out Vector2 curvP1, out _);
+            targetPos = new Vector2(nextGridX, nextGridY) + curvP1;
             //targetPosCheck = targetPos + curvP1;
         }
 
@@ -97,7 +102,7 @@ public class TrainMovment : MonoBehaviour
         Gizmos.DrawSphere(targetPos, 0.1f);
     }
 
-    private void RotateTrain(out Vector2 firstPoint, out Vector2 secondPoint)
+    private void GetCurvePoints(out Vector2 firstPoint, out Vector2 secondPoint)
     {
         WorldTileRail nextNextRail = nextRail.NextRail;
 
@@ -146,10 +151,6 @@ public class TrainMovment : MonoBehaviour
 
         //Get  next
         GetNextTarget(curRail.NextRail.x, curRail.NextRail.y);
-    }
-
-    private void setPos(int x, int y)
-    {
-
+        RotateToTarget(); 
     }
 }

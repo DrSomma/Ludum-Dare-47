@@ -24,11 +24,8 @@ public class TrainMovment : MonoBehaviour
     void Start()
     {
         //gameManager = GameManager.Instance;
-
-        
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.position = Vector2.MoveTowards(transform.position, targetPos, Time.deltaTime * speed);
@@ -45,6 +42,13 @@ public class TrainMovment : MonoBehaviour
         gameManager.GetFieldStatus(x: nextGridX, y: nextGridY, worldTile: out WorldTileClass nextWorldTile);
         nextRail = (WorldTileRail)nextWorldTile.WorldTileSpecification;
 
+        RotateTrain(nextGridX, nextGridY);
+
+        targetPos = new Vector2(nextGridX, nextGridY);
+    }
+
+    private void RotateTrain(int nextGridX, int nextGridY)
+    {
         if (nextGridY > curRail.y)
         {
             train_sprite.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -62,8 +66,6 @@ public class TrainMovment : MonoBehaviour
         {
             train_sprite.transform.rotation = Quaternion.Euler(0, 0, 90);
         }
-
-        targetPos = new Vector2(nextGridX, nextGridY);
     }
 
     public void StartTrain(int x, int y)

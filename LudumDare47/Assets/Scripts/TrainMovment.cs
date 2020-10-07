@@ -20,7 +20,7 @@ public class TrainMovment : MonoBehaviour
     private GameObject _trainSprite;
 
     private bool _isStopped = true; 
-    public int trainTraveledTiles = 0;
+    private int _trainTraveledTiles;
 
     private void Awake()
     {
@@ -80,7 +80,7 @@ public class TrainMovment : MonoBehaviour
 
     private int CalcMoney(int level)
     {
-        return (int) Mathf.Pow(trainTraveledTiles,1.3f)*2*(level+1);
+        return (int) Mathf.Pow(_trainTraveledTiles,1.3f)*2*(level+1);
     }
 
     public void CheckIfTrackStillLoop()
@@ -102,14 +102,14 @@ public class TrainMovment : MonoBehaviour
             WorldTileStation temp = station.WorldTileSpecification as WorldTileStation;
             _gameManager.ChangeMoney(CalcMoney(temp.UpgradeLevel), transform.position);
             SoundManager.Instance.PlaySoundCoins();
-            trainTraveledTiles = 0;
+            _trainTraveledTiles = 0;
         }
         else
         {
-            trainTraveledTiles++;
-            if(trainTraveledTiles > _curRail._trackRailCount)
+            _trainTraveledTiles++;
+            if(_trainTraveledTiles > _curRail._trackRailCount)
             {
-                trainTraveledTiles = 0;
+                _trainTraveledTiles = 0;
             }
         }
 
@@ -214,7 +214,7 @@ public class TrainMovment : MonoBehaviour
         GetNextTarget(_curRail.GetNextRail().x, _curRail.GetNextRail().y);
         RotateToTarget();
 
-        trainTraveledTiles = 0;
+        _trainTraveledTiles = 0;
 
 
         _isStopped = false;

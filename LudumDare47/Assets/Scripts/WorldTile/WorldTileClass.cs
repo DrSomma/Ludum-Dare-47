@@ -37,20 +37,20 @@ namespace WorldTile
                 case WorldTileSpecificationType.None:
                     break;
                 case WorldTileSpecificationType.Rail:
-                    if (SpriteManager.Instance.TryGetSpriteByName(spriteName: $"rail_straight_{level}", outSprite: out outSprite))
+                    if (SpriteManager.TryGetSpriteByName(spriteName: $"rail_straight_{level}", outSprite: out outSprite))
                     {
                         sprite.sprite = outSprite;
                     }
                     break;
                 case WorldTileSpecificationType.Station:
-                    if (SpriteManager.Instance.TryGetSpriteByName(spriteName: $"station_{level}", outSprite: out outSprite))
+                    if (SpriteManager.TryGetSpriteByName(spriteName: $"station_{level}", outSprite: out outSprite))
                     {
                         sprite.sprite = outSprite;
                     }
                     break;
                 case WorldTileSpecificationType.Environment:
                     string spriteName = UnityEngine.Random.Range(0,1) == 1 ? "tree" : "rock";
-                    if (SpriteManager.Instance.TryGetSpriteByName(spriteName: spriteName, outSprite: out outSprite))
+                    if (SpriteManager.TryGetSpriteByName(spriteName: spriteName, outSprite: out outSprite))
                     {
                         sprite.sprite = outSprite;
                     }

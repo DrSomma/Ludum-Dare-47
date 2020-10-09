@@ -1,8 +1,8 @@
-﻿using amazeIT;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Enum;
+using Ui;
 using UnityEngine;
 using WorldTile;
 
@@ -11,6 +11,7 @@ namespace Manager
     public class GameManager : MonoBehaviour
     {
         #region SINGLETON PATTERN
+
         private static GameManager _instance;
 
         public static GameManager Instance
@@ -31,6 +32,7 @@ namespace Manager
                 return _instance;
             }
         }
+
         #endregion
 
         public GameObject worldTilePrefab;
@@ -42,12 +44,13 @@ namespace Manager
         public bool buildModeOn;
         public int startMoney = 1000;
         public int Money { get; private set; }
-        public GameObject TrainPrefab;
-        public GameObject MoneyTextPrefab;
+        public GameObject trainPrefab;
+        public GameObject moneyTextPrefab;
         public GameObject canvas;
 
 
         public delegate void MoneyChanged(int money, int sumToAdd);
+
         public event MoneyChanged OnMoneyChanged;
 
 
@@ -55,63 +58,70 @@ namespace Manager
         private int _nextObjectId;
 
 
-
         private void Awake()
         {
             _gridByTile = new Dictionary<KeyValuePair<int, int>, WorldTileClass>();
-            ChangeMoney(startMoney, Vector3.zero);
+            ChangeMoney(sumToAdd: startMoney, pos: Vector3.zero);
 
             // Grid to make visible the border of playing field
-            if (drawDebugLine)
+            if (!drawDebugLine)
             {
-                Debug.DrawLine(start: new Vector3(x: 0, y: 0),
-                               end: new Vector3(x: 0, y: height),
-                               color: Color.white,
-                               duration: 100f);
-                Debug.DrawLine(start: new Vector3(x: 0, y: 0),
-                               end: new Vector3(x: width, y: 0),
-                               color: Color.white,
-                               duration: 100f);
-                Debug.DrawLine(start: new Vector3(x: 0, y: height),
-                               end: new Vector3(x: width, y: height),
-                               color: Color.white,
-                               duration: 100f);
-                Debug.DrawLine(start: new Vector3(x: width, y: 0),
-                               end: new Vector3(x: width, y: height),
-                               color: Color.white,
-                               duration: 100f);
+                return;
             }
+
+            Debug.DrawLine(
+                start: new Vector3(x: 0, y: 0),
+                end: new Vector3(x: 0, y: height),
+                color: Color.white,
+                duration: 100f);
+            Debug.DrawLine(
+                start: new Vector3(x: 0, y: 0),
+                end: new Vector3(x: width, y: 0),
+                color: Color.white,
+                duration: 100f);
+            Debug.DrawLine(
+                start: new Vector3(x: 0, y: height),
+                end: new Vector3(x: width, y: height),
+                color: Color.white,
+                duration: 100f);
+            Debug.DrawLine(
+                start: new Vector3(x: width, y: 0),
+                end: new Vector3(x: width, y: height),
+                color: Color.white,
+                duration: 100f);
         }
 
         public void ChangeMoney(int sumToAdd, Vector3 pos)
         {
-            if (pos != null)
-            {
-                GameObject temp = Instantiate(MoneyTextPrefab);
-                temp.transform.SetParent(canvas.transform);
-                temp.GetComponent<MoneyText>().Init(sumToAdd);
-                temp.transform.position = Camera.main.WorldToScreenPoint(pos);
-            }
-            ChangeMoney(sumToAdd);
+            GameObject temp = Instantiate(original: moneyTextPrefab, parent: canvas.transform, worldPositionStays: true);
+            temp.GetComponent<MoneyText>().Init(money: sumToAdd);
+            System.Diagnostics.Debug.Assert(condition: Camera.main != null, message: "Camera.main != null");
+            temp.transform.position = Camera.main.WorldToScreenPoint(position: pos);
+
+
+            ChangeMoney(sumToAdd: sumToAdd);
         }
 
-        public void ChangeMoney(int sumToAdd)
+        private void ChangeMoney(int sumToAdd)
         {
-            if(sumToAdd > 0 || Money >= sumToAdd)
+            if (sumToAdd > 0 || Money >= sumToAdd)
             {
                 Money += sumToAdd;
-                OnMoneyChanged?.Invoke(Money, sumToAdd);
+                OnMoneyChanged?.Invoke(money: Money, sumToAdd: sumToAdd);
             }
         }
 
-        public void BuildSomething(int x, int y, WorldTileSpecificationType buildType, int level)
+        public void BuildSomething(
+            int x,
+            int y,
+            WorldTileSpecificationType buildType,
+            int level)
         {
             WorldTileStatusType worldTileStatus = GetFieldStatus(x: x, y: y, worldTile: out WorldTileClass worldTile);
 
             if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Invalid))
             {
                 Debug.Log(message: "Invalid field - building impossible!");
-                return;
             }
             else if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Blocked))
             {
@@ -120,27 +130,30 @@ namespace Manager
             else if (worldTileStatus.HasFlag(flag: WorldTileStatusType.NotInitialized))
             {
                 // Initialize
-                GameObject gameObject = Instantiate(original: worldTilePrefab,
-                                                    position: new Vector3(x: x, y: y),
-                                                    rotation: Quaternion.identity);
+                GameObject go = Instantiate(
+                    original: worldTilePrefab,
+                    position: new Vector3(x: x, y: y),
+                    rotation: Quaternion.identity);
 
-                worldTile = gameObject.GetComponent<WorldTileClass>();
+                worldTile = go.GetComponent<WorldTileClass>();
 
-                worldTile.Instantiate(id: _nextObjectId++,
-                                      pos: new Vector2(x: x, y: y),
-                                      worldTileSpecification: buildType,
-                                      neighbours: GetNeighbourTiles(x: x, y: y),
-                                      level);
+                worldTile.Instantiate(
+                    id: _nextObjectId++,
+                    pos: new Vector2(x: x, y: y),
+                    worldTileSpecification: buildType,
+                    neighbours: GetNeighbourTiles(x: x, y: y),
+                    level: level);
 
                 _gridByTile.Add(key: new KeyValuePair<int, int>(key: x, value: y), value: worldTile);
             }
             else if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Buildable))
             {
-                worldTile.Instantiate(id: _nextObjectId++,
-                                      pos: new Vector2(x: x, y: y),
-                                      worldTileSpecification: buildType,
-                                      neighbours: GetNeighbourTiles(x: x, y: y),
-                                      level);
+                worldTile.Instantiate(
+                    id: _nextObjectId++,
+                    pos: new Vector2(x: x, y: y),
+                    worldTileSpecification: buildType,
+                    neighbours: GetNeighbourTiles(x: x, y: y),
+                    level: level);
             }
         }
 
@@ -151,27 +164,30 @@ namespace Manager
             if (worldTileStatus.HasFlag(flag: WorldTileStatusType.NotInitialized))
             {
                 // Initialize
-                GameObject gameObject = Instantiate(original: worldTilePrefab,
-                                                    position: new Vector3(x: x, y: y),
-                                                    rotation: Quaternion.identity);
+                GameObject go = Instantiate(
+                    original: worldTilePrefab,
+                    position: new Vector3(x: x, y: y),
+                    rotation: Quaternion.identity);
 
-                worldTile = gameObject.GetComponent<WorldTileClass>();
+                worldTile = go.GetComponent<WorldTileClass>();
 
-                worldTile.Instantiate(id: _nextObjectId++,
-                                      pos: new Vector2(x: x, y: y),
-                                      worldTileSpecification: buildType,
-                                      neighbours: GetNeighbourTiles(x: x, y: y),
-                                      0);
+                worldTile.Instantiate(
+                    id: _nextObjectId++,
+                    pos: new Vector2(x: x, y: y),
+                    worldTileSpecification: buildType,
+                    neighbours: GetNeighbourTiles(x: x, y: y),
+                    level: 0);
 
                 _gridByTile.Add(key: new KeyValuePair<int, int>(key: x, value: y), value: worldTile);
             }
             else if (worldTileStatus.HasFlag(flag: WorldTileStatusType.Buildable))
             {
-                worldTile.Instantiate(id: _nextObjectId++,
-                                      pos: new Vector2(x: x, y: y),
-                                      worldTileSpecification: buildType,
-                                      neighbours: GetNeighbourTiles(x: x, y: y),
-                                      0);
+                worldTile.Instantiate(
+                    id: _nextObjectId++,
+                    pos: new Vector2(x: x, y: y),
+                    worldTileSpecification: buildType,
+                    neighbours: GetNeighbourTiles(x: x, y: y),
+                    level: 0);
             }
         }
 
@@ -206,15 +222,17 @@ namespace Manager
 
         public void DeleteTile(int x, int y)
         {
-            if (_gridByTile.TryGetValue(key: new KeyValuePair<int, int>(key: x, value: y),
-                                        value: out WorldTileClass worldTile))
+            if (_gridByTile.TryGetValue(
+                key: new KeyValuePair<int, int>(key: x, value: y),
+                value: out WorldTileClass worldTile))
             {
                 worldTile.OnDelete();
 
-                Destroy(worldTile.gameObject);
+                Destroy(obj: worldTile.gameObject);
                 _gridByTile.Remove(key: new KeyValuePair<int, int>(key: x, value: y));
             }
         }
+
         private bool IsValidField(int x, int y)
         {
             return x >= 0 && y >= 0 && x < width && y < height;
@@ -228,8 +246,9 @@ namespace Manager
                 return WorldTileStatusType.Invalid;
             }
 
-            if (_gridByTile.TryGetValue(key: new KeyValuePair<int, int>(key: x, value: y),
-                                        value: out worldTile))
+            if (_gridByTile.TryGetValue(
+                key: new KeyValuePair<int, int>(key: x, value: y),
+                value: out worldTile))
             {
                 switch (worldTile.worldTileSpecificationType)
                 {
@@ -249,8 +268,8 @@ namespace Manager
 
         public void SpawnTrain(WorldTileRail startRail)
         {
-            GameObject copy = Instantiate(TrainPrefab);
-            copy.GetComponent<TrainMovment>().StartTrain(startRail);
+            GameObject copy = Instantiate(original: trainPrefab);
+            copy.GetComponent<TrainMovment>().StartTrain(startRail: startRail);
         }
     }
 }

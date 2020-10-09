@@ -81,18 +81,17 @@ namespace amazeIT
     }
 
     #region ReadOnly
-    /// <summary>
-    /// Just for Debuggin. Has to be deactivated for building
-    ///
-    ///
-    ///
-    /// This is just for the editor view
-    /// Write [ReadOnly] before the variable if it shouldn't be enabled for editing in the editor
-    ///
-    /// Example:
-    /// [ReadOnly] public string str;
-    /// </summary>
-
+    // /// <summary>
+    // /// Just for Debugging. Has to be deactivated for building
+    // ///
+    // ///
+    // ///
+    // /// This is just for the editor view
+    // /// Write [ReadOnly] before the variable if it shouldn't be enabled for editing in the editor
+    // ///
+    // /// Example:
+    // /// [ReadOnly] public string str;
+    // /// </summary>
     // public class ReadOnlyAttribute : PropertyAttribute
     // {
     // }

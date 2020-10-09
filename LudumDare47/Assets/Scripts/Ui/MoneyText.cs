@@ -1,33 +1,39 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
-public class MoneyText : MonoBehaviour
+namespace Ui
 {
-    public TextMeshProUGUI text;
-    public CanvasGroup grp;
-    public float fadeSpeed = 2f;
-    public float fadeOutTime = 2f;
-
-    public void Init(int money)
+    public class MoneyText : MonoBehaviour
     {
-        text.text = (money > 0 ? "+" : "") + money + "$";
-        text.color = (money > 0 ? Color.green : Color.red);
-        StartCoroutine(FadeAway());
-    }
+        public TextMeshProUGUI text;
+        public CanvasGroup canvasGroup;
+        public float fadeSpeed = 0.3f;
+        public float fadeOutTime = 2f;
 
-    private IEnumerator FadeAway()
-    {
-        CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
-
-        for (float t = 0.01f; t < fadeOutTime;)
+        public void Init(int money)
         {
-            transform.Translate(Vector3.up*0.3f);
-            t += Time.deltaTime;
-            t = Mathf.Min(t, fadeOutTime);
-            canvasGroup.alpha = Mathf.Lerp(1, 0, Mathf.Min(1, t / fadeOutTime));
-            yield return null;
+            text.text = (money > 0 ? "+" : "") + money + "$";
+            text.color = (money > 0 ? Color.green : Color.red);
+            canvasGroup = GetComponent<CanvasGroup>();
+            StartCoroutine(FadeAway());
+        }
+
+        private IEnumerator FadeAway()
+        {
+            if (canvasGroup is null)
+            {
+                canvasGroup = GetComponent<CanvasGroup>();
+            }
+
+            for (float t = 0.01f; t < fadeOutTime;)
+            {
+                transform.Translate(Vector3.up*fadeSpeed);
+                t += Time.deltaTime;
+                t = Mathf.Min(a: t, b: fadeOutTime);
+                canvasGroup.alpha = Mathf.Lerp(a: 1, b: 0, t: Mathf.Min(a: 1, b: t / fadeOutTime));
+                yield return null;
+            }
         }
     }
 }

@@ -51,12 +51,12 @@ namespace WorldTile
 
         private void GetSprites()
         {
-            if (SpriteManager.Instance.TryGetSpriteByName(spriteName: $"rail_curve_{UpgradeLevel}", outSprite: out Sprite curve))
+            if (SpriteManager.TryGetSpriteByName(spriteName: $"rail_curve_{UpgradeLevel}", outSprite: out Sprite curve))
             {
                 _railCurve = curve;
             }
 
-            if (SpriteManager.Instance.TryGetSpriteByName(spriteName: $"rail_straight_{UpgradeLevel}", outSprite: out Sprite straight))
+            if (SpriteManager.TryGetSpriteByName(spriteName: $"rail_straight_{UpgradeLevel}", outSprite: out Sprite straight))
             {
                 _railStraight = straight;
             }

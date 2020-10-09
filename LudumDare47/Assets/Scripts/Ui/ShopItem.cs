@@ -1,45 +1,42 @@
 ﻿using Enum;
-using UnityEngine;
-using TMPro;
 using Manager;
+using TMPro;
+using UnityEngine;
 
-public class ShopItem : MonoBehaviour
+namespace Ui
 {
-    public int price = 100;
-    public int level = 0;
-    public WorldTileSpecificationType type;
-
-    public TextMeshProUGUI priceTag;
-
-    public delegate void ShopItemPressed(ShopItem item);
-
-    public static event ShopItemPressed OnShopItemPressed;
-
-    private void Start()
+    public class ShopItem : MonoBehaviour
     {
-        if (priceTag != null)
-        {
-            priceTag.text = $"{price}$";
-        }
-        UpdateUI(GameManager.Instance.startMoney, 0);
+        public int price = 100;
+        public int level = 0;
+        public WorldTileSpecificationType type;
 
-        GameManager.Instance.OnMoneyChanged += UpdateUI;
-    }
+        public TextMeshProUGUI priceTag;
 
-    public void UpdateUI(int money,int sumToAdd)
-    {
-        if(money < price)
-        {
-            priceTag.color = Color.red;
-        }
-        else
-        {
-            priceTag.color = Color.white;
-        }
-    }
+        public delegate void ShopItemPressed(ShopItem item);
 
-    public void SetBuyItem()
-    {
-        OnShopItemPressed?.Invoke(item: this);
+        public static event ShopItemPressed OnShopItemPressed;
+
+        private void Start()
+        {
+            if (priceTag != null)
+            {
+                priceTag.text = $"{price}$";
+            }
+
+            UpdateUI(money: GameManager.Instance.startMoney, sumToAdd: 0);
+
+            GameManager.Instance.OnMoneyChanged += UpdateUI;
+        }
+
+        private void UpdateUI(int money, int sumToAdd)
+        {
+            priceTag.color = money < price ? Color.red : Color.white;
+        }
+
+        public void SetBuyItem()
+        {
+            OnShopItemPressed?.Invoke(item: this);
+        }
     }
 }

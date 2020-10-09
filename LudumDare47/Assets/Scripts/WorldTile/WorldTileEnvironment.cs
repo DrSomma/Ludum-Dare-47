@@ -11,7 +11,7 @@ namespace WorldTile
             Type = WorldTileSpecificationType.Environment;
 
             string spriteName = UnityEngine.Random.Range(0f, 1f) > 0.5f ? "tree" : "stone";
-            if (SpriteManager.Instance.TryGetSpriteByName(spriteName: spriteName, outSprite: out Sprite sprite))
+            if (SpriteManager.TryGetSpriteByName(spriteName: spriteName, outSprite: out Sprite sprite))
             {
                 Sprite = sprite;
             }

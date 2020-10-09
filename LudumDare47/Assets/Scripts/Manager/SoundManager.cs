@@ -55,8 +55,6 @@ namespace Manager
 
             if (ambientSound != null)
             {
-                float audioClipLength = ambientSound.length;
-
                 GameObject soundNode = Instantiate(soundNodePrefab);
 
                 _ambientSoundAudioSource = soundNode.GetComponent<AudioSource>();
@@ -91,17 +89,6 @@ namespace Manager
             {
                 _ambientSoundAudioSource.mute = muteAmbientSound;
             }
-
-
-            //if (!MuteMusic && !musicSource.isPlaying)
-            //{
-            //    musicSource.Play();
-            //}
-            //else if (MuteMusic)
-            //{
-            //    musicSource.Stop();
-            //    musicSource.mute = true;
-            //}
         }
 
         private IEnumerator PlayBirdSounds()
@@ -160,7 +147,7 @@ namespace Manager
             audioSource.clip = audioClip;
             audioSource.Play();
 
-            Destroy(soundNode, audioClipLength);
+            Destroy(obj: soundNode, t: audioClipLength);
         }
 
         public void MuteMusic(bool vBool)

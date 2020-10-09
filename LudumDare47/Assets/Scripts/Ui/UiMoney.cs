@@ -1,20 +1,23 @@
-﻿using UnityEngine;
+﻿using Manager;
 using TMPro;
-using Manager;
+using UnityEngine;
 
-public class UiMoney : MonoBehaviour
+namespace Ui
 {
-    private TextMeshProUGUI _textField;
-
-    private void Start()
+    public class UiMoney : MonoBehaviour
     {
-        _textField = GetComponent<TextMeshProUGUI>();
-        UpdateUI(GameManager.Instance.startMoney,0);
-        GameManager.Instance.OnMoneyChanged += UpdateUI;
-    }
+        private TextMeshProUGUI _textField;
 
-    private void UpdateUI(int money, int sumToAdd)
-    {
-        _textField.text = $"{money}$";
+        private void Start()
+        {
+            _textField = GetComponent<TextMeshProUGUI>();
+            UpdateUI(money: GameManager.Instance.startMoney, sumToAdd: 0);
+            GameManager.Instance.OnMoneyChanged += UpdateUI;
+        }
+
+        private void UpdateUI(int money, int sumToAdd)
+        {
+            _textField.text = $"{money}$";
+        }
     }
 }

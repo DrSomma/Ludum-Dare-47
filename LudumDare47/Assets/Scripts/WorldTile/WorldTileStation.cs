@@ -13,7 +13,7 @@ namespace WorldTile
             UpgradeLevel = level;
             Type = WorldTileSpecificationType.Station;
 
-            if (SpriteManager.Instance.TryGetSpriteByName(spriteName: $"station_{UpgradeLevel}", outSprite: out Sprite sprite))
+            if (SpriteManager.TryGetSpriteByName(spriteName: $"station_{UpgradeLevel}", outSprite: out Sprite sprite))
             {
                 Sprite = sprite;
                 SoundManager.Instance.PlaySoundPlaceStation();

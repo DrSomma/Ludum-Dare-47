@@ -40,7 +40,7 @@ namespace Manager
             _nameBySprite = nameBySprite.ToDictionary(keySelector: ns => ns.name, elementSelector: ns => ns.sprite);
         }
 
-        public bool TryGetSpriteByName(string spriteName, out Sprite outSprite)
+        public static bool TryGetSpriteByName(string spriteName, out Sprite outSprite)
         {
             return _nameBySprite.TryGetValue(key: spriteName, value: out outSprite);
         }

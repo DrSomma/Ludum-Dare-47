@@ -1,10 +1,8 @@
 ﻿using Enum;
 using Manager;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 using WorldTile;
 
 public class TrainMovment : MonoBehaviour
@@ -19,95 +17,98 @@ public class TrainMovment : MonoBehaviour
     private bool _rotateDone;
     private GameObject _trainSprite;
 
-    private bool _isStopped = true; 
+    private bool _isStopped = true;
     private int _trainTraveledTiles;
 
     private void Awake()
     {
-        _trainSprite = this.gameObject;
+        _trainSprite = gameObject;
         _gameManager = GameManager.Instance;
         _curSpeed = speed;
     }
 
 
-    void Update()
+    private void Update()
     {
         if (_isStopped)
+        {
             return;
+        }
 
-        transform.position = Vector2.MoveTowards(transform.position, _targetPos, Time.deltaTime * _curSpeed);
+        transform.position = Vector2.MoveTowards(current: transform.position, target: _targetPos, maxDistanceDelta: Time.deltaTime * _curSpeed);
         if (!_nextRail.IsCurve)
         {
-            if (Vector2.Distance(new Vector2(transform.position.x, transform.position.y), _targetPos) < 0.005f)
+            if (Vector2.Distance(a: new Vector2(x: transform.position.x, y: transform.position.y), b: _targetPos) < 0.005f)
             {
                 transform.position = _targetPos;
                 _curRail = _nextRail;
-                GetNextTarget(_nextRail.GetNextRail().x, _nextRail.GetNextRail().y);
+                GetNextTarget(nextGridX: _nextRail.GetNextRail().x, nextGridY: _nextRail.GetNextRail().y);
                 RotateToTarget();
-
             }
         }
         else
         {
-            if (Vector2.Distance(new Vector2(transform.position.x, transform.position.y), _targetPos) < 0.005f)
+            if (Vector2.Distance(a: new Vector2(x: transform.position.x, y: transform.position.y), b: _targetPos) < 0.005f)
             {
                 if (!_rotateDone)
                 {
                     _rotateDone = true;
-                    GetCurvePoints(out Vector2 curvP1, out Vector2 curvP2);
-                    _targetPos = new Vector2(_nextRail.x, _nextRail.y) + curvP2;
+                    GetCurvePoints(firstPoint: out Vector2 _, secondPoint: out Vector2 curvP2);
+                    _targetPos = new Vector2(x: _nextRail.x, y: _nextRail.y) + curvP2;
                     RotateToTarget();
                 }
                 else
                 {
                     _curRail = _nextRail;
-                    GetNextTarget(_nextRail.GetNextRail().x, _nextRail.GetNextRail().y);
+                    GetNextTarget(nextGridX: _nextRail.GetNextRail().x, nextGridY: _nextRail.GetNextRail().y);
                     RotateToTarget();
                 }
-
             }
-
         }
-
     }
 
     private void RotateToTarget()
     {
-        var dir = new Vector3(_targetPos.x, _targetPos.y, 0) - _trainSprite.transform.position;
-        var angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-        _trainSprite.transform.rotation = Quaternion.AngleAxis(360 - angle, Vector3.forward);
+        Vector3 dir = new Vector3(x: _targetPos.x, y: _targetPos.y, z: 0) - _trainSprite.transform.position;
+        float angle = Mathf.Atan2(y: dir.x, x: dir.y) * Mathf.Rad2Deg;
+        _trainSprite.transform.rotation = Quaternion.AngleAxis(angle: 360 - angle, axis: Vector3.forward);
     }
 
     private int CalcMoney(int level)
     {
-        return (int) Mathf.Pow(_trainTraveledTiles,1.3f)*2*(level+1);
+        return (int) Mathf.Pow(f: _trainTraveledTiles, p: 1.3f) * 2 * (level + 1);
     }
 
     public void CheckIfTrackStillLoop()
     {
-        if (!_curRail._trackFinished)
+        if (_curRail._trackFinished)
         {
-            Debug.Log("Delete Train: " + _curRail._trackFinished);
-            Destroy(this.gameObject);
+            return;
         }
+
+        Debug.Log("Delete Train: " + _curRail._trackFinished);
+        Destroy(gameObject);
     }
 
     private void GetNextTarget(int nextGridX, int nextGridY)
     {
         //check for station
-        List<WorldTileClass> neighbours = _gameManager.GetNeighbourTiles(_curRail.x, _curRail.y);
-        var station = neighbours.FirstOrDefault(x => x.worldTileSpecificationType == WorldTileSpecificationType.Station);
-        if(station != null)
+        List<WorldTileClass> neighbours = _gameManager.GetNeighbourTiles(x: _curRail.x, y: _curRail.y);
+        WorldTileClass station = neighbours.FirstOrDefault(x => x.worldTileSpecificationType == WorldTileSpecificationType.Station);
+        if (station != null)
         {
-            WorldTileStation temp = station.WorldTileSpecification as WorldTileStation;
-            _gameManager.ChangeMoney(CalcMoney(temp.UpgradeLevel), transform.position);
+            if (station.WorldTileSpecification is WorldTileStation temp)
+            {
+                _gameManager.ChangeMoney(sumToAdd: CalcMoney(level: temp.UpgradeLevel), pos: transform.position);
+            }
+
             SoundManager.Instance.PlaySoundCoins();
             _trainTraveledTiles = 0;
         }
         else
         {
             _trainTraveledTiles++;
-            if(_trainTraveledTiles > _curRail._trackRailCount)
+            if (_trainTraveledTiles > _curRail._trackRailCount)
             {
                 _trainTraveledTiles = 0;
             }
@@ -115,30 +116,30 @@ public class TrainMovment : MonoBehaviour
 
         //Debug.Log($"Train Mov to {nextGridX}|{nextGridY}");
         _gameManager.GetFieldStatus(x: nextGridX, y: nextGridY, worldTile: out WorldTileClass nextWorldTile);
-        _nextRail = (WorldTileRail)nextWorldTile.WorldTileSpecification;
+        _nextRail = (WorldTileRail) nextWorldTile.WorldTileSpecification;
 
         //Add speed
         _curSpeed = speed + 0.5f * _nextRail.UpgradeLevel;
 
         if (!_nextRail.IsCurve)
         {
-            _targetPos = new Vector2(nextGridX + 0.5f, nextGridY + 0.5f);
+            _targetPos = new Vector2(x: nextGridX + 0.5f, y: nextGridY + 0.5f);
         }
         else
         {
             _rotateDone = false;
-            GetCurvePoints(out Vector2 curvP1, out _);
-            _targetPos = new Vector2(nextGridX, nextGridY) + curvP1;
+            GetCurvePoints(firstPoint: out Vector2 curvP1, secondPoint: out _);
+            _targetPos = new Vector2(x: nextGridX, y: nextGridY) + curvP1;
         }
-
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawSphere(new Vector2(transform.position.x + 0.5f, transform.position.y + 0.5f), 0.1f);
+        Vector3 position = transform.position;
+        Gizmos.DrawSphere(center: new Vector2(x: position.x + 0.5f, y: position.y + 0.5f), radius: 0.1f);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(_targetPos, 0.1f);
+        Gizmos.DrawSphere(center: _targetPos, radius: 0.1f);
     }
 
     private void GetCurvePoints(out Vector2 firstPoint, out Vector2 secondPoint)
@@ -154,50 +155,52 @@ public class TrainMovment : MonoBehaviour
             case CompassDirection.NE:
                 if (isAbove.HasValue && isAbove.Value)
                 {
-                    firstPoint = new Vector2(0.5f, 0f);
-                    secondPoint = new Vector2(1f, 0.5f);
+                    firstPoint = new Vector2(x: 0.5f, y: 0f);
+                    secondPoint = new Vector2(x: 1f, y: 0.5f);
                 }
                 else
                 {
-                    firstPoint = new Vector2(0f, 0.5f);
-                    secondPoint = new Vector2(0.5f, 1f);
+                    firstPoint = new Vector2(x: 0f, y: 0.5f);
+                    secondPoint = new Vector2(x: 0.5f, y: 1f);
                 }
+
                 break;
             case CompassDirection.SW:
                 if (isAbove.HasValue && isAbove.Value)
                 {
-                    firstPoint = new Vector2(1f, 0.5f);
-                    secondPoint = new Vector2(0.5f, 0f);
+                    firstPoint = new Vector2(x: 1f, y: 0.5f);
+                    secondPoint = new Vector2(x: 0.5f, y: 0f);
                 }
                 else
                 {
-                    firstPoint = new Vector2(0.5f, 1f);
-                    secondPoint = new Vector2(0, 0.5f);
+                    firstPoint = new Vector2(x: 0.5f, y: 1f);
+                    secondPoint = new Vector2(x: 0, y: 0.5f);
                 }
+
                 break;
             case CompassDirection.SE:
                 if (isAbove.HasValue && isAbove.Value)
                 {
-                    firstPoint = new Vector2(0f, 0.5f);
-                    secondPoint = new Vector2(0.5f, 0);
+                    firstPoint = new Vector2(x: 0f, y: 0.5f);
+                    secondPoint = new Vector2(x: 0.5f, y: 0);
                 }
                 else
                 {
-                    firstPoint = new Vector2(0.5f, 1f);
-                    secondPoint = new Vector2(1f, 0.5f);
+                    firstPoint = new Vector2(x: 0.5f, y: 1f);
+                    secondPoint = new Vector2(x: 1f, y: 0.5f);
                 }
 
                 break;
             case CompassDirection.NW:
                 if (isAbove.HasValue && isAbove.Value)
                 {
-                    firstPoint = new Vector2(0.5f, 0);
-                    secondPoint = new Vector2(0f, 0.5f);
+                    firstPoint = new Vector2(x: 0.5f, y: 0);
+                    secondPoint = new Vector2(x: 0f, y: 0.5f);
                 }
                 else
                 {
-                    firstPoint = new Vector2(1f, 0.5f);
-                    secondPoint = new Vector2(0.5f, 1f);
+                    firstPoint = new Vector2(x: 1f, y: 0.5f);
+                    secondPoint = new Vector2(x: 0.5f, y: 1f);
                 }
 
                 break;
@@ -207,11 +210,11 @@ public class TrainMovment : MonoBehaviour
     public void StartTrain(WorldTileRail startRail)
     {
         Debug.Log($"Start Train @ {startRail.x}|{startRail.y}");
-        transform.position = new Vector2(startRail.x + 0.5f, startRail.y + 0.5f);
+        transform.position = new Vector2(x: startRail.x + 0.5f, y: startRail.y + 0.5f);
         _curRail = startRail;
 
         //Get  next
-        GetNextTarget(_curRail.GetNextRail().x, _curRail.GetNextRail().y);
+        GetNextTarget(nextGridX: _curRail.GetNextRail().x, nextGridY: _curRail.GetNextRail().y);
         RotateToTarget();
 
         _trainTraveledTiles = 0;

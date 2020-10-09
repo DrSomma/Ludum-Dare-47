@@ -1,27 +1,25 @@
 ﻿using amazeIT;
 using Enum;
 using Manager;
-using System.Collections.Generic;
 using UnityEngine;
 using WorldTile;
 
 public class ShopManager : MonoBehaviour
 {
     public GameObject cursor;
-    public Dictionary<int, int> PriceTable;
 
     private SpriteRenderer _spriteRenderer;
     private WorldTileSpecificationType _buildType = WorldTileSpecificationType.Station;
     private int _buildPrice;
-    private int level;
+    private int _level;
     private GameObject _tempBuilding;
     private bool _onDestroyMode;
+    private static readonly int GrayscaleAmount = Shader.PropertyToID("_GrayscaleAmount");
 
     private void Start()
     {
         _spriteRenderer = cursor.GetComponentInChildren<SpriteRenderer>();
         _spriteRenderer.sprite = null;
-        //_spriteRenderer.material.SetFloat("_GrayscaleAmount", 1);
 
         ShopItem.OnShopItemPressed += SetBuildType;
     }
@@ -37,7 +35,7 @@ public class ShopManager : MonoBehaviour
             SoundManager.Instance.PlaySoundUiClick();
             SetBuildType(type: item.type);
             _buildPrice = item.price;
-            level = item.level;
+            _level = item.level;
         }
     }
 
@@ -63,7 +61,7 @@ public class ShopManager : MonoBehaviour
                 if (Input.GetMouseButtonDown(button: 0) && CanBuy(price: _buildPrice))
                 {
                     GameManager.Instance.ChangeMoney(sumToAdd: -_buildPrice,new Vector3(x,y,0));
-                    GameManager.Instance.BuildSomething(x: x, y: y, buildType: _buildType,level);
+                    GameManager.Instance.BuildSomething(x: x, y: y, buildType: _buildType,_level);
                 }
             }
             else
@@ -83,11 +81,11 @@ public class ShopManager : MonoBehaviour
 
         WorldTileClass worldTile = cursor.GetComponent<WorldTileClass>();
 
-        worldTile.InstantiateForShop(worldTileSpecification: type, level);
+        worldTile.InstantiateForShop(worldTileSpecification: type, _level);
 
         GameManager.Instance.buildModeOn = true;
 
-        _spriteRenderer.material.SetFloat(name: "_GrayscaleAmount", value: 1);
+        _spriteRenderer.material.SetFloat( nameID: GrayscaleAmount,  value: 1f);
     }
 
     public void SetDestroyMode()
@@ -100,7 +98,7 @@ public class ShopManager : MonoBehaviour
         }
 
         _spriteRenderer.color = Color.white;
-        _spriteRenderer.material.SetFloat(name: "_GrayscaleAmount", value: 0);
+        _spriteRenderer.material.SetFloat(nameID: GrayscaleAmount, value: 0);
     }
 
     private bool CanBuy(int price)

@@ -9,6 +9,7 @@ public class UiMoney : MonoBehaviour
     private void Start()
     {
         _textField = GetComponent<TextMeshProUGUI>();
+        UpdateUI(GameManager.Instance.startMoney,0);
         GameManager.Instance.OnMoneyChanged += UpdateUI;
     }
 

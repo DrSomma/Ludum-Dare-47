@@ -20,13 +20,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d90bb05-f1ae-43ae-ab22-a3048c71824d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Ui.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Ui/MoneyText.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Ui/MoneyText.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Ui/ShopItem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Ui/ShopItem.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Ui/UiMoney.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Ui/UiMoney.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/UI/Prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/UI/Prefab/AddMoney.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/UI/Prefab/AddMoney.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/UI/Prefab/Shop Item.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/UI/Prefab/Shop Item.prefab.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.LudumDare47/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LudumDare47/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.LudumDare47/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LudumDare47/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LudumDare47/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LudumDare47/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MoneyText.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MoneyText.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game.unity.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game_Train.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game_Train.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StartTrackSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StartTrackSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Shop.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Shop.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ShopItem.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ShopItem.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ShopManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ShopManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TrainMovment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TrainMovment.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileClass.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileClass.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/amazeIT/Utils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/amazeIT/Utils.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UiMoney.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UiMoney.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SpawnMap.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SpawnMap.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UI/AddMoney.controller" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UI/AddMoney.controller.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UI/AddMoney.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UI/AddMoney.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UI/Shop Item.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UI/Shop Item.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UI/money.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UI/money.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UI/shop_money.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UI/shop_money.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UI/ui.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UI/ui.png.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,18 +72,12 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Manager/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7DAE2265-1EDF-474E-AD4A-B15FA947A891/9e/67115e0f/VideoClipImporter.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/IL/7DAE2265-1EDF-474E-AD4A-B15FA947A891/6b/ae641a01/02000C07.il" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7DAE2265-1EDF-474E-AD4A-B15FA947A891/05/1ab699e0/BuildTargetGroup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Manager/SpriteManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enum/WorldTileSpecificationType.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7DAE2265-1EDF-474E-AD4A-B15FA947A891/3e/3f75e883/AudioImporter.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileClass.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7DAE2265-1EDF-474E-AD4A-B15FA947A891/7a/411f7232/BuildPipeline.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Manager/SpriteManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Manager/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileRail.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileStation.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/04258D1C-DC10-4424-8C2A-17A6A31A3CF7/e9/d3b5829e/Object.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileClass.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enum/WorldTileStatusType.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -71,7 +100,6 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Enum/CompassDirection.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Manager/GameManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Manager/SoundManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ShopManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileRail.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileStation.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/StartTrackSpawner.cs" />
@@ -79,6 +107,8 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileClass.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileClass.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/TrainMovment.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/SpawnMap.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ShopManager.cs" />
       </list>
     </option>
   </component>
@@ -103,17 +133,17 @@
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor &amp; Play">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$USER_HOME$/Desktop/LudumDare47 Build\LudumDare47.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../../../../LudumDare47 Build\LudumDare47.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\Marvin\Desktop\LudumDare47 Build" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="20256">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="20256" />
+      <option name="pid" />
       <option name="selectedOptions">
         <set />
       </option>
@@ -142,6 +172,7 @@
       <workItem from="1601688920092" duration="20332000" />
       <workItem from="1601904984545" duration="959000" />
       <workItem from="1601929023528" duration="6913000" />
+      <workItem from="1602090986412" duration="818000" />
     </task>
     <servers />
   </component>

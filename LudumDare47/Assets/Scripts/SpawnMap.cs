@@ -16,10 +16,10 @@ public class SpawnMap : MonoBehaviour
         {
             for (int y = -1; y < GameManager.Instance.height+1; y++)
             {
-                GameObject temp =  Instantiate(prefab);
+                GameObject temp =  Instantiate(prefab, this.transform, true);
                 temp.transform.position = new Vector2(x, y);
                 SpriteRenderer render = temp.GetComponentInChildren<SpriteRenderer>();
-                //tiles[Random.Range(0, tiles.Length-1)];
+                
                 string randomName = $"gras_{Random.Range(0, cntGras)}";
                 if(SpriteManager.Instance.TryGetSpriteByName(randomName, out Sprite sprite))
                 {
@@ -33,11 +33,5 @@ public class SpawnMap : MonoBehaviour
                 }
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Enum;
 using UnityEngine;
 using TMPro;
+using Manager;
 
 public class ShopItem : MonoBehaviour
 {
@@ -19,6 +20,21 @@ public class ShopItem : MonoBehaviour
         if (priceTag != null)
         {
             priceTag.text = $"{price}$";
+        }
+        UpdateUI(GameManager.Instance.startMoney, 0);
+
+        GameManager.Instance.OnMoneyChanged += UpdateUI;
+    }
+
+    public void UpdateUI(int money,int sumToAdd)
+    {
+        if(money < price)
+        {
+            priceTag.color = Color.red;
+        }
+        else
+        {
+            priceTag.color = Color.white;
         }
     }
 

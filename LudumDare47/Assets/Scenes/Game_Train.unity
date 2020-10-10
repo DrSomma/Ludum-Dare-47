@@ -902,9 +902,9 @@ MonoBehaviour:
   height: 9
   drawDebugLine: 1
   buildModeOn: 0
-  startMoney: 2000
-  TrainPrefab: {fileID: 4401213353363675970, guid: a3314691c0e39474cb13917cbf795780, type: 3}
-  MoneyTextPrefab: {fileID: 893066801155315601, guid: 19833c5d3bb19ab4c9a410998266e3fd, type: 3}
+  startMoney: 200000
+  trainPrefab: {fileID: 4401213353363675970, guid: a3314691c0e39474cb13917cbf795780, type: 3}
+  moneyTextPrefab: {fileID: 893066801155315601, guid: 19833c5d3bb19ab4c9a410998266e3fd, type: 3}
   canvas: {fileID: 1860781124}
 --- !u!4 &1175170112
 Transform:

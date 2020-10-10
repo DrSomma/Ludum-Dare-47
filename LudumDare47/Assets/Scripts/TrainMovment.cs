@@ -1,4 +1,5 @@
-﻿using Enum;
+﻿using System;
+using Enum;
 using Manager;
 using System.Collections.Generic;
 using System.Linq;
@@ -118,18 +119,37 @@ public class TrainMovment : MonoBehaviour
         _gameManager.GetFieldStatus(x: nextGridX, y: nextGridY, worldTile: out WorldTileClass nextWorldTile);
         _nextRail = (WorldTileRail) nextWorldTile.WorldTileSpecification;
 
-        //Add speed
-        _curSpeed = speed + 0.5f * _nextRail.UpgradeLevel;
-
-        if (!_nextRail.IsCurve)
+        if (_nextRail.IsCurve)
         {
-            _targetPos = new Vector2(x: nextGridX + 0.5f, y: nextGridY + 0.5f);
-        }
-        else
-        {
+            _curSpeed = (speed + 0.5f * _nextRail.UpgradeLevel) * Mathf.Sqrt(f: 0.5f);
             _rotateDone = false;
             GetCurvePoints(firstPoint: out Vector2 curvP1, secondPoint: out _);
             _targetPos = new Vector2(x: nextGridX, y: nextGridY) + curvP1;
+        }
+        else
+        {
+            _curSpeed = speed + 0.5f * _nextRail.UpgradeLevel;
+
+            switch (_nextRail.CompassDirection)
+            {
+                case CompassDirection.N:
+                    _targetPos = new Vector2(x: nextGridX + 0.5f, y: nextGridY + 1f);
+                    break;
+                case CompassDirection.E:
+                    _targetPos = new Vector2(x: nextGridX + 1f, y: nextGridY + 0.5f);
+                    break;
+                case CompassDirection.S:
+                    _targetPos = new Vector2(x: nextGridX + 0.5f, y: nextGridY);
+                    break;
+                case CompassDirection.W:
+                    _targetPos = new Vector2(x: nextGridX, y: nextGridY + 0.5f);
+                    break;
+                case CompassDirection.SW: break;
+                case CompassDirection.NW: break;
+                case CompassDirection.NE: break;
+                case CompassDirection.SE: break;
+                default: throw new ArgumentOutOfRangeException();
+            }
         }
     }
 
@@ -149,7 +169,7 @@ public class TrainMovment : MonoBehaviour
 
         firstPoint = Vector2.zero;
         secondPoint = Vector2.zero;
-        //Debug.Log($"{nextRail.CompassDirection} | {isAbove.Value}");
+
         switch (_nextRail.CompassDirection)
         {
             case CompassDirection.NE:
@@ -204,6 +224,11 @@ public class TrainMovment : MonoBehaviour
                 }
 
                 break;
+            case CompassDirection.E: break;
+            case CompassDirection.N: break;
+            case CompassDirection.W: break;
+            case CompassDirection.S: break;
+            default: throw new ArgumentOutOfRangeException();
         }
     }
 
@@ -213,12 +238,10 @@ public class TrainMovment : MonoBehaviour
         transform.position = new Vector2(x: startRail.x + 0.5f, y: startRail.y + 0.5f);
         _curRail = startRail;
 
-        //Get  next
         GetNextTarget(nextGridX: _curRail.GetNextRail().x, nextGridY: _curRail.GetNextRail().y);
         RotateToTarget();
 
         _trainTraveledTiles = 0;
-
 
         _isStopped = false;
     }

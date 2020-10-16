@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using amazeIT;
 using Enum;
 using Ui;
 using UnityEngine;
+using UnityEngine.UIElements;
 using WorldTile;
 
 namespace Manager
@@ -89,6 +91,26 @@ namespace Manager
                 end: new Vector3(x: width, y: height),
                 color: Color.white,
                 duration: 100f);
+        }
+
+        private void Update()
+        {
+            if (Input.GetMouseButtonDown(button: 0))
+            {
+                System.Diagnostics.Debug.Assert(condition: Camera.main != null, message: "Camera.main != null");
+                Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position: Input.mousePosition);
+                Utils.GetXY(worldPosition: worldPosition, x: out int x, y: out int y);
+
+
+                if (TryGetWorldTile(x: x, y: y, outWorldTile: out WorldTileClass outWorldTile))
+                {
+                    // give money on station_click
+                    if (outWorldTile.WorldTileSpecification is WorldTileStation worldTileStation)
+                    {
+                        ChangeMoney(sumToAdd: worldTileStation.UpgradeLevel + 1, pos: new Vector3(x: x, y: y, z: 0));
+                    }
+                }
+            }
         }
 
         public void ChangeMoney(int sumToAdd, Vector3 pos)
@@ -265,6 +287,22 @@ namespace Manager
                 return WorldTileStatusType.NotInitialized | WorldTileStatusType.Buildable;
             }
         }
+
+        public bool TryGetWorldTile(int x, int y, out WorldTileClass outWorldTile)
+        {
+            if (IsValidField(x: x, y: y))
+            {
+                return _gridByTile.TryGetValue(
+                    key: new KeyValuePair<int, int>(key: x, value: y),
+                    value: out outWorldTile);
+            }
+            else
+            {
+                outWorldTile = null;
+                return false;
+            }
+        }
+
 
         public void SpawnTrain(WorldTileRail startRail)
         {

@@ -22,9 +22,8 @@
     <list default="true" id="8d90bb05-f1ae-43ae-ab22-a3048c71824d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LudumDare47/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LudumDare47/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LudumDare47/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LudumDare47/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Train.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Train.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game_Train.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game_Train.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TrainMovment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TrainMovment.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Manager/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Manager/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileRail.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileRail.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,11 +59,9 @@
         <option value="$PROJECT_DIR$/Assets/ShopItem.cs" />
         <option value="$PROJECT_DIR$/Assets/ShopManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Enum/CompassDirection.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileRail.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileStation.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileClass.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileClass.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Manager/GameManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/amazeIT/Utils.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Manager/SoundManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Manager/SpriteManager.cs" />
@@ -75,6 +72,8 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/SpawnMap.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/StartTrackSpawner.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/TrainMovment.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/WorldTile/WorldTileRail.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Manager/GameManager.cs" />
       </list>
     </option>
   </component>
@@ -106,10 +105,10 @@
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="4952">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="4952" />
+      <option name="pid" />
       <option name="selectedOptions">
         <set />
       </option>
@@ -143,6 +142,7 @@
       <workItem from="1602275542512" duration="5854000" />
       <workItem from="1602283201601" duration="358000" />
       <workItem from="1602284433865" duration="6605000" />
+      <workItem from="1602883479071" duration="1784000" />
     </task>
     <servers />
   </component>
@@ -301,10 +301,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="498" height="466" key="SwitcherDM/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1601738984495" />
-    <state x="92" y="92" width="1736" height="856" key="VCS.FileHistoryDialog" timestamp="1601743614334">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="165" y="124" width="3111" height="1153" key="VCS.FileHistoryDialog" timestamp="1602884935600">
+      <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="VCS.FileHistoryDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1601743614334" />
+    <state x="165" y="124" width="3111" height="1153" key="VCS.FileHistoryDialog/-1920.0.1920.1040/0.0.3440.1400@0.0.3440.1400" timestamp="1602884935600" />
     <state x="1376" y="330" key="run.anything.popup" timestamp="1601653850250">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
